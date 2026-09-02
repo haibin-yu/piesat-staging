@@ -1,0 +1,1488 @@
+{
+  "source": "baidu-search-console",
+  "note": "百度站长平台第一方搜索数据（用户在百度真实搜索、官网被展现/点击的真实回流）。ctr 为百分比数值，rank 为百度平均排名（仅 PC 端有）。",
+  "period": "2026-08",
+  "importedAt": "2026-08-28",
+  "devices": [
+    {
+      "device": "pc",
+      "label": "PC 端",
+      "totalShow": 86,
+      "totalClick": 2,
+      "rows": [
+        {
+          "kw": "航天宏图",
+          "show": 45,
+          "click": 2,
+          "ctr": 4.44,
+          "rank": 7,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 5,
+          "click": 0,
+          "ctr": 0,
+          "rank": 12.2,
+          "url": ""
+        },
+        {
+          "kw": "海看股份",
+          "show": 4,
+          "click": 0,
+          "ctr": 0,
+          "rank": 97.5,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": 1.5,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图是国企还是央企",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": 26.5,
+          "url": ""
+        },
+        {
+          "kw": "深圳市宏图物联科技有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": 10,
+          "url": ""
+        },
+        {
+          "kw": "北京鸿图天祥科技有限公司有哪些网络上公开发布的产品? 公司经营范围不算,只返回",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": 9,
+          "url": ""
+        },
+        {
+          "kw": "中科星图 航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 10,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统推荐",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 43,
+          "url": ""
+        },
+        {
+          "kw": "北京航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 2,
+          "url": ""
+        },
+        {
+          "kw": "3kg 复合翼无人机 -广告 -推广 -site:baidu.com",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 19,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司是国企吗",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 5,
+          "url": ""
+        },
+        {
+          "kw": "宣城航天宏图智能设备制造有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 4,
+          "url": ""
+        },
+        {
+          "kw": "https://www.piesat.com.cn",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 1,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急预警监测公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 40,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统龙头公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 41,
+          "url": ""
+        },
+        {
+          "kw": "实景三维网上",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 11,
+          "url": ""
+        },
+        {
+          "kw": "提供ai互联网运营是什么",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 10,
+          "url": ""
+        },
+        {
+          "kw": "北京微纳星空科技有限公司 融资 -广告 -推广 -site:baidu.com",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 28,
+          "url": ""
+        },
+        {
+          "kw": "贵州宏图文化股份有限公司 - 首页",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 36,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图股价",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 9,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统企业",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 38,
+          "url": ""
+        },
+        {
+          "kw": "航天宏图重组最新消息",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 45,
+          "url": ""
+        },
+        {
+          "kw": "宏图 -site:baidu.com -site:58.com -site:zhihu.com -site:qq.com",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 27,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统供应商",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 42,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统厂家",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 34,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急预警监测哪家好",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 35,
+          "url": ""
+        },
+        {
+          "kw": "智慧应急监测系统公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 43,
+          "url": ""
+        },
+        {
+          "kw": "宏图软件",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 4,
+          "url": ""
+        },
+        {
+          "kw": "中国·星空综合(股份)有限公司-官方网站",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 50,
+          "url": ""
+        },
+        {
+          "kw": "sat 是什么 -广告 -推广 -site:baidu.com",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": 39,
+          "url": ""
+        }
+      ]
+    },
+    {
+      "device": "mobile",
+      "label": "移动端",
+      "totalShow": 326,
+      "totalClick": 9,
+      "rows": [
+        {
+          "kw": "航天宏图",
+          "show": 89,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 9,
+          "click": 2,
+          "ctr": 22.22,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 8,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "688066航天宏图股",
+          "show": 6,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "恒星集团线路导航.6.s.tjh7ns8h9.top",
+          "show": 6,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 5,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/info/"
+        },
+        {
+          "kw": "智慧林草护林通下载",
+          "show": 4,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/forestry.html"
+        },
+        {
+          "kw": "航天宏图公司",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/real-3d.html"
+        },
+        {
+          "kw": "商业航天测运控及卫星应用联盟航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/news/guoji/"
+        },
+        {
+          "kw": "中国航天宏图科技股份有限公司",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/ecology.html"
+        },
+        {
+          "kw": "航天宏图获国家发明专利授权,构建智能时空检索技术",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/index.html"
+        },
+        {
+          "kw": "智慧林草护林通",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/forestry.html"
+        },
+        {
+          "kw": "付珍航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/partner/plan.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/uav/traffic.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "航天宏图公司",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "付珍航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/real-3d.html"
+        },
+        {
+          "kw": "中国航天宏图科技股份有限公司",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "付珍航天宏图照片",
+          "show": 3,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "差分干涉卫星影像处理软件",
+          "show": 3,
+          "click": 1,
+          "ctr": 33.33,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-sar.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/city-remote-sensing.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/uav/FA1600.html"
+        },
+        {
+          "kw": "北京和青岛的石纳大学是什么关系?",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "pie实习是什么意思",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "北京航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "pie遥感软件",
+          "show": 2,
+          "click": 2,
+          "ctr": 100,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-basic.html"
+        },
+        {
+          "kw": "航天宏图公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/land.html"
+        },
+        {
+          "kw": "航天宏图西安",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "赵媛斐航天宏图故事",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/1727.html"
+        },
+        {
+          "kw": "参加招聘会的用人单位需要提供哪些信息?",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图中标公告",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/other/notice.html"
+        },
+        {
+          "kw": "深圳司南数据服务有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "付珍航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/uav/hexarotor.html"
+        },
+        {
+          "kw": "航天宏图 卫星",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/investor/investor.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/server/"
+        },
+        {
+          "kw": "北京航天宏图信息技术股份有限公司",
+          "show": 2,
+          "click": 1,
+          "ctr": 50,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/ai/samplelabel/"
+        },
+        {
+          "kw": "河南航天宏图信息技术有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图 卫星",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/1755.html"
+        },
+        {
+          "kw": "赵媛斐航天宏图故事",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/"
+        },
+        {
+          "kw": "长光卫星航天宏图",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/info/"
+        },
+        {
+          "kw": "航天宏图 卫星",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2354.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 2,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2354.html"
+        },
+        {
+          "kw": "北京弘象和航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "宏图公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "云南载誉科技有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/land.html"
+        },
+        {
+          "kw": "北京航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "国新数据有限责任公司招聘的岗位是哪个?",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图宋毅合作近况",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图上市时间",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "宏图公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图西安分公司交流",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/forestry.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "曲利宏在航天宏图负责什么",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "天津航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司识别号",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "云南开发规划研究院官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "宏图公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/land.html"
+        },
+        {
+          "kw": "航天宏图ps软件",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-sar.html"
+        },
+        {
+          "kw": "云南国产云服务",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "360星座网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2357.html"
+        },
+        {
+          "kw": "宏图一号航天宏图信息技术股份有限",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/index.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/"
+        },
+        {
+          "kw": "三水学院官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "st航天宏图股票",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图上卫星",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-patrol.html"
+        },
+        {
+          "kw": "吉林财经大学国际交流学院",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图 鹤壁",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/case/case-qx.html"
+        },
+        {
+          "kw": "国产网站运营服务价格",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图宋毅合作近况",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/news/guoji/"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/uav/tourism.html"
+        },
+        {
+          "kw": "女娲星座卫星",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/999/"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-patrol.html"
+        },
+        {
+          "kw": "知青告知书公告 航天宏图信息股份",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图 中科星云",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/"
+        },
+        {
+          "kw": "宏图公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/636.html"
+        },
+        {
+          "kw": "天津航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/land.html"
+        },
+        {
+          "kw": "航天宏图上卫星消息与股价",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "① pie‑engine(航天宏图,最推荐)",
+          "show": 1,
+          "click": 1,
+          "ctr": 100,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图ps",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/partner/plan.html"
+        },
+        {
+          "kw": "航天宏图西安分公司交流",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/investor/investor.html"
+        },
+        {
+          "kw": "航天宏图ps软件",
+          "show": 1,
+          "click": 1,
+          "ctr": 100,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/dl-center/software-download.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "宏图一号航天宏图信息技术股份有限",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "enas sar公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "付珍航天宏图照片",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/partner/uav.html"
+        },
+        {
+          "kw": "河南航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/real-3d.html"
+        },
+        {
+          "kw": "mappie",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-sar.html"
+        },
+        {
+          "kw": "郑州航天宏图北斗研究院",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/beidou.html"
+        },
+        {
+          "kw": "宏图架构",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-sdk.html"
+        },
+        {
+          "kw": "航天宏图 上市时间",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "付珍航天宏图照片",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/uav/PIE-UX15.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/index.html"
+        },
+        {
+          "kw": "宏图公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/real-3d.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "彭亮航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/383.html"
+        },
+        {
+          "kw": "中国职业规划大赛官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "曲利宏在航天宏图负责什么",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/1103.html"
+        },
+        {
+          "kw": "智慧林草护林通苹",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/forestry.html"
+        },
+        {
+          "kw": "天津航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "688066航天宏图公告",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/999/"
+        },
+        {
+          "kw": "航天宏图公司简介包含哪些内容?它的发展历程和主要产品是什么?",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "长光卫星航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/real-3d.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/383.html"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/traffic.html"
+        },
+        {
+          "kw": "天文处理软件pi",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-basic.html"
+        },
+        {
+          "kw": "航天宏图最新",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/land.html"
+        },
+        {
+          "kw": "航天宏图西安分公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/999/"
+        },
+        {
+          "kw": "宏图公司简介",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "pie职业概述",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "湖南航天宏图无人机系统有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "彭亮航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/about/about-us.html"
+        },
+        {
+          "kw": "宏图一号航天宏图信息技术股份有限",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/assets/img/"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/uav/ecology.html"
+        },
+        {
+          "kw": "航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/weather.html"
+        },
+        {
+          "kw": "天津航天宏图信息技术有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "航天宏图西安分公司学习技术交流",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/999/"
+        },
+        {
+          "kw": "北京弘象科技与航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/other/notice.html"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/611.html"
+        },
+        {
+          "kw": "航天宏图 水文信息共享平台",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/partner/plan.html"
+        },
+        {
+          "kw": "航天宏图信息技术股份有限公司",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/industry/agricultural.html"
+        },
+        {
+          "kw": "卫星软件app",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图 slgen",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "航天宏图官网",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/636.html"
+        },
+        {
+          "kw": "遵义实习网提供哪些实习岗位的招聘信息?",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "3dearthsatellitemap",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/en-us/PIE-Map.html"
+        },
+        {
+          "kw": "星座时间",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "夸父航天宏图",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/info/"
+        },
+        {
+          "kw": "航天宏图 卫星",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/assets/img/"
+        },
+        {
+          "kw": "pyodm正射精度能达到多少",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/product/software/pie-ortho.html"
+        },
+        {
+          "kw": "航天宏图 水文信息共享平台",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/solution/hot/ecology.html"
+        },
+        {
+          "kw": "航天宏图西安分公司学习技术交流",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/partner/uav.html"
+        },
+        {
+          "kw": "我国地方支持商业航天发展情况如何?",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "航天宏图西安分公司学习技术交流",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2371.html"
+        },
+        {
+          "kw": "航天宏图 slgen",
+          "show": 1,
+          "click": 1,
+          "ctr": 100,
+          "rank": null,
+          "url": "https://www.piesat.cn/"
+        },
+        {
+          "kw": "宏图架构",
+          "show": 1,
+          "click": 0,
+          "ctr": 0,
+          "rank": null,
+          "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2364.html"
+        }
+      ]
+    }
+  ]
+}
