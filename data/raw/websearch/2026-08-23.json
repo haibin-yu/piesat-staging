@@ -1,0 +1,117 @@
+{
+  "date": "2026-08-23",
+  "source": "websearch",
+  "summary": "首期基线扫描。10 条探测 query 全部零引用：6 篇已上线文章在通用词搜索下尚未进入 WebSearch 结果前列，品牌词「航天宏图 女娲星座」也只见股票站/新闻站转载、未见官网博客。结论——文章已上线，但搜索引擎收录与排名尚未建立，GEO 优化从现在开始。竞品内容几乎全部为图文文章，视频与问答形式近乎空白，是潜在内容机会。",
+  "queries": [
+    {
+      "id": 1,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 2,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 3,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 4,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 5,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 6,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 7,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 8,
+      "found": false,
+      "rank": null,
+      "competitorCount": 9,
+      "contentTypes": {
+        "article": 9,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 9,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 10,
+      "found": false,
+      "rank": null,
+      "competitorCount": 9,
+      "contentTypes": {
+        "article": 9,
+        "video": 0,
+        "qa": 0
+      }
+    }
+  ]
+}
