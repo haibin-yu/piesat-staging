@@ -126,7 +126,7 @@ tbody tr:last-child td{border-bottom:none}
       <span>目标：<span id="targetSite" style="color:#4a90d9">—</span></span>
     </div>
     <div class="note">
-      口径说明：本仪表盘监测「航天宏图技术博客文章在搜索/AI 引擎中的可见性」。<strong>引用命中率</strong>来自 WebSearch 自动化探测（每周扫描，结果出现 piesat.cn 即算引用）；<strong>AI 引擎真实引用</strong>已升级为 API 自动探测（2026-09-01 起）：豆包·搜索（豆包搜索 web_search）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、方舟DeepSeek（方舟托管 DeepSeek 模型）、DeepSeek（官方 Responses API web_search）各 30 词/轮，Kimi 暂不支持稳定引用监测（搜索结果加密、引用 URL 不可控）。B3、B4 两篇文章尚未正式发布，对应 query 标记为「待发布」。<strong>探测词表已扩充至 30 条</strong>（新增 20 条来自百度第一方数据暴露的真实搜索词），下方「百度搜索 · 第一方数据」层直接展示 8 月真实流量回流。
+      口径说明：本仪表盘监测「航天宏图技术博客文章在搜索/AI 引擎中的可见性」。<strong>引用命中率</strong>来自 WebSearch 自动化探测（每周扫描，结果出现 piesat.cn 即算引用）；<strong>AI 引擎真实引用</strong>已升级为 API 自动探测（2026-09-01 起）：豆包·搜索（豆包搜索 web_search）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、DeepSeek（官方 Responses API web_search）各 30 词/轮，Kimi 暂不支持稳定引用监测（搜索结果加密、引用 URL 不可控）。B3、B4 两篇文章尚未正式发布，对应 query 标记为「待发布」。<strong>探测词表已扩充至 30 条</strong>（新增 20 条来自百度第一方数据暴露的真实搜索词），下方「百度搜索 · 第一方数据」层直接展示 8 月真实流量回流。
     </div>
   </div>
 
@@ -231,8 +231,8 @@ tbody tr:last-child td{border-bottom:none}
 
   <!-- AI 引擎真实引用（豆包 / DeepSeek API 自动探测） -->
   <div class="table-box">
-    <div class="chart-title" style="margin-bottom:8px">AI 引擎真实引用 · API 自动探测（豆包 / 方舟 / DeepSeek）</div>
-    <div style="font-size:12px;color:#aaa;margin-bottom:16px">豆包·搜索（豆包搜索 API）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、方舟DeepSeek（方舟托管 DeepSeek）、DeepSeek（官方 Responses API web_search）均已 API 自动探测，Kimi 暂不支持稳定引用监测。判定口径：<strong style="color:#888">官网 piesat.cn 被引用才算「已引用」</strong>，名次 = 它在结果列表里的序号；头条号等第三方账号被引用不计入官网命中，但可在小结里备注。</div>
+    <div class="chart-title" style="margin-bottom:8px">AI 引擎真实引用 · API 自动探测（豆包 / DeepSeek）</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:16px">豆包·搜索（豆包搜索 API）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、DeepSeek（官方 Responses API web_search）均已 API 自动探测，Kimi 暂不支持稳定引用监测。判定口径：<strong style="color:#888">官网 piesat.cn 被引用才算「已引用」</strong>，名次 = 它在结果列表里的序号；头条号等第三方账号被引用不计入官网命中，但可在小结里备注。</div>
     <div id="aiEngineBody"></div>
 
     <!-- 抽样填写器：页面勾选 → 生成 JSON → 复制回填 -->
@@ -245,7 +245,7 @@ tbody tr:last-child td{border-bottom:none}
         <label>本周小结（备注，可选）<input type="text" id="aiSummary" placeholder="如：豆包引用源第6为航天宏图头条号，官网未上榜"></label>
       </div>
       <table class="ai-fill-table">
-        <thead><tr><th>#</th><th>探测 Query</th><th>豆包·搜索</th><th>豆包·模型</th><th>方舟DeepSeek</th><th>DeepSeek</th><th>Kimi·暂不支持</th></tr></thead>
+        <thead><tr><th>#</th><th>探测 Query</th><th>豆包·搜索</th><th>豆包·模型</th><th>DeepSeek</th><th>Kimi·暂不支持</th></tr></thead>
         <tbody id="aiFillerBody"></tbody>
       </table>
       <div class="ai-filler-actions">
@@ -259,7 +259,7 @@ tbody tr:last-child td{border-bottom:none}
 
   <!-- 底部 -->
   <div class="footer">
-    <span>口径：WebSearch 自动化探测（每周）＋ AI 引擎 API 自动探测（豆包 / 方舟 / DeepSeek 已接入）</span>
+    <span>口径：WebSearch 自动化探测（每周）＋ AI 引擎 API 自动探测（豆包 / DeepSeek 已接入）</span>
     <span>航天宏图 GEO 监测 · 素雅风格</span>
   </div>
 
@@ -547,7 +547,6 @@ function renderQueryTable(queryList, queryMap, latestQueries) {
 const AI_ENGINES = [
   { key: 'doubao',   label: '豆包·搜索' },
   { key: 'doubao_model', label: '豆包·模型' },
-  { key: 'ark_deepseek', label: '方舟DeepSeek' },
   { key: 'deepseek', label: 'DeepSeek' },
   { key: 'kimi',     label: 'Kimi·暂不支持' }
 ];
