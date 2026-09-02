@@ -1,0 +1,12 @@
+{
+  "date": "2026-08-23",
+  "source": "baidu-manual",
+  "summary": "百度人工抽样（首期）：「雷达卫星为什么能穿透云层」第1位为航天宏图百家号，官网 piesat.cn 未上榜。其余 query 待补测。",
+  "queries": [
+    {
+      "id": 1,
+      "found": false,
+      "rank": null
+    }
+  ]
+}
