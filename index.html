@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEO 监测仪表盘 · 航天宏图</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:#f3f4f0;color:#1a1a1a;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding:48px 24px 80px}
+
+/* 头部 */
+.header{margin-bottom:48px}
+.header h1{font-size:26px;font-weight:700;color:#0f0f0f;letter-spacing:1px}
+.header .sub{font-size:14px;color:#888;margin-top:6px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.header .badge{display:inline-block;padding:2px 10px;border-radius:3px;font-size:12px;font-weight:600;background:rgba(74,144,217,0.1);color:#4a90d9}
+.header .note{font-size:12px;color:#aaa;margin-top:14px;line-height:1.8;background:#fff;border-radius:8px;padding:14px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+
+/* 概览卡片 */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+.card{background:#fff;border-radius:8px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.card-label{font-size:12px;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.card-value{font-size:36px;font-weight:700;color:#0f0f0f;line-height:1}
+.card-value.small{font-size:22px}
+.card-delta{font-size:12px;color:#999;margin-top:6px}
+.card-delta.up{color:#22c55e}
+.card-delta.down{color:#e8453c}
+
+/* 探测词组悬停浮层 */
+.card-hover{position:relative}
+.query-tip{position:absolute;top:100%;left:0;width:360px;margin-top:8px;background:#fff;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.12);padding:16px 18px;opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease;z-index:30}
+.card-hover:hover .query-tip{opacity:1;visibility:visible;transform:translateY(0)}
+.tip-title{font-size:12px;color:#999;letter-spacing:1px;margin-bottom:10px;font-weight:600}
+.query-tip li{font-size:13px;color:#444;padding:5px 0;border-bottom:1px solid #f5f5f5;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.query-tip li:last-child{border-bottom:none}
+.tip-text{flex:1;line-height:1.5}
+.tip-meta{flex-shrink:0;display:flex;align-items:center;gap:6px}
+.tip-art{font-size:11px;color:#aaa}
+.tip-pending{font-size:10px;color:#b9893f;background:rgba(212,167,106,0.12);padding:1px 6px;border-radius:3px}
+
+/* AI 引擎抽样填写器 */
+.ai-filler{margin-top:20px;border-top:1px solid #f0f0f0;padding-top:20px}
+.ai-filler-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.ai-filler-title{font-size:13px;font-weight:700;color:#555;letter-spacing:1px}
+.ai-filler-date{font-size:12px;color:#888}
+.ai-filler-date input{margin-left:6px;padding:4px 8px;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;font-family:inherit;color:#333}
+.ai-filler-summary{margin-bottom:12px}
+.ai-filler-summary label{font-size:12px;color:#888;display:block}
+.ai-filler-summary input{width:100%;margin-top:4px;padding:6px 10px;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;font-family:inherit;color:#333}
+.ai-fill-table{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px}
+.ai-fill-table thead th{text-align:left;padding:8px 10px;color:#999;font-weight:600;font-size:12px;letter-spacing:1px;border-bottom:1px solid #eee}
+.ai-fill-table tbody td{padding:8px 10px;border-bottom:1px solid #f5f5f5;color:#333}
+.ai-sel{padding:4px 8px;border:1px solid #e0e0e0;border-radius:4px;font-size:12px;color:#333;background:#fff;font-family:inherit;cursor:pointer}
+.ai-btn{padding:8px 18px;border:none;border-radius:4px;font-size:13px;font-weight:600;background:#4a90d9;color:#fff;cursor:pointer}
+.ai-btn-alt{background:transparent;border:1px solid #ddd;color:#888;margin-left:8px}
+.ai-btn:disabled{opacity:0.4;cursor:not-allowed}
+.ai-json-out{width:100%;min-height:120px;margin-top:12px;padding:12px;border:1px solid #e0e0e0;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#555;resize:vertical;background:#fafafa}
+.ai-filler-hint{font-size:11px;color:#aaa;margin-top:8px;line-height:1.7}
+
+/* 图表区 */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px}
+.chart-box{background:#fff;border-radius:8px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.chart-box.wide{grid-column:1/-1}
+.chart-title{font-size:14px;font-weight:700;color:#555;letter-spacing:1px;margin-bottom:20px}
+.chart-wrap{position:relative;height:280px}
+.chart-wrap.tall{height:400px}
+
+/* Query 表格 */
+.table-box{background:#fff;border-radius:8px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin-bottom:48px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{text-align:left;padding:10px 12px;color:#999;font-weight:600;font-size:12px;letter-spacing:1px;border-bottom:1px solid #eee}
+tbody td{padding:12px;border-bottom:1px solid #f5f5f5;color:#333}
+tbody tr:last-child td{border-bottom:none}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+.dot.found{background:#22c55e}
+.dot.miss{background:#ddd}
+.tag-sm{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:600;letter-spacing:1px}
+.tag-intent{background:rgba(74,144,217,0.08);color:#4a90d9}
+.bar-mini{display:inline-block;height:6px;border-radius:3px;background:#e5e7eb;width:80px;vertical-align:middle;margin-left:6px}
+.bar-mini-inner{height:6px;border-radius:3px;background:#4a90d9}
+
+/* 底部 */
+.footer{margin-top:48px;padding-top:24px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;flex-wrap:wrap;gap:8px}
+.footer a{color:#4a90d9;text-decoration:none}
+
+/* 百度第一方数据（站长平台） */
+.bsc-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.bsc-card{background:#fafbfc;border:1px solid #eef0f2;border-radius:8px;padding:16px 18px}
+.bsc-card .bsc-label{font-size:11px;color:#999;letter-spacing:1px;margin-bottom:6px}
+.bsc-card .bsc-value{font-size:24px;font-weight:700;color:#0f0f0f;line-height:1}
+.bsc-card .bsc-value small{font-size:12px;font-weight:400;color:#999;margin-left:2px}
+.bsc-tabs{display:flex;gap:6px;margin-bottom:16px;border-bottom:1px solid #eee}
+.bsc-tab{padding:8px 18px;font-size:13px;font-weight:600;color:#999;cursor:pointer;border:none;background:transparent;border-bottom:2px solid transparent;font-family:inherit}
+.bsc-tab.active{color:#4a90d9;border-bottom-color:#4a90d9}
+.bsc-table-wrap{max-height:520px;overflow-y:auto}
+.bsc-table-wrap table{font-size:13px}
+.noise{color:#b9b9b9}
+.noise-tag{display:inline-block;font-size:10px;color:#b9893f;background:rgba(212,167,106,0.14);padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+.noise-tag.unrelated{color:#999;background:#f0f0f0}
+.ctr-pill{display:inline-block;min-width:46px;text-align:center;font-size:11px;font-weight:600;padding:2px 7px;border-radius:10px}
+.ctr-good{background:rgba(34,197,94,0.12);color:#16a34a}
+.ctr-mid{background:rgba(212,167,106,0.14);color:#b9893f}
+.ctr-zero{background:#f0f0f0;color:#aaa}
+
+/* 响应式 */
+@media(max-width:768px){
+  .cards{grid-template-columns:1fr 1fr}
+  .charts{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .cards{grid-template-columns:1fr}
+  .header h1{font-size:20px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 头部 -->
+  <div class="header">
+    <h1 id="projectName">GEO 监测仪表盘</h1>
+    <div class="sub">
+      <span id="scanCount">加载中…</span>
+      <span class="badge" id="statusBadge">初始化</span>
+      <span>目标：<span id="targetSite" style="color:#4a90d9">—</span></span>
+    </div>
+    <div class="note">
+      口径说明：本仪表盘监测「航天宏图技术博客文章在搜索/AI 引擎中的可见性」。<strong>引用命中率</strong>来自 WebSearch 自动化探测（每周扫描，结果出现 piesat.cn 即算引用）；<strong>AI 引擎真实引用</strong>已升级为 API 自动探测（2026-09-01 起）：豆包·搜索（豆包搜索 web_search）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、方舟DeepSeek（方舟托管 DeepSeek 模型）、DeepSeek（官方 Responses API web_search）各 30 词/轮，Kimi 暂不支持稳定引用监测（搜索结果加密、引用 URL 不可控）。B3、B4 两篇文章尚未正式发布，对应 query 标记为「待发布」。<strong>探测词表已扩充至 30 条</strong>（新增 20 条来自百度第一方数据暴露的真实搜索词），下方「百度搜索 · 第一方数据」层直接展示 8 月真实流量回流。
+    </div>
+  </div>
+
+  <!-- 概览卡片 -->
+  <div class="cards">
+    <div class="card card-hover">
+      <div class="card-label">探测词组</div>
+      <div class="card-value" id="totalQueries">—</div>
+      <div class="card-delta">覆盖 6 类搜索意图 · 悬停查看</div>
+      <div class="query-tip">
+        <div class="tip-title">探测词组明细</div>
+        <ul id="queryTipList"></ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">引用命中率</div>
+      <div class="card-value" id="hitRate">0%</div>
+      <div class="card-delta" id="hitDelta">首次扫描</div>
+    </div>
+    <div class="card card-hover">
+      <div class="card-label">竞品密度</div>
+      <div class="card-value small" id="avgCompetitor">—</div>
+      <div class="card-delta">条 query 平均竞品数 · 悬停查看</div>
+      <div class="query-tip">
+        <div class="tip-title">逐条 Query 竞品数</div>
+        <ul id="compTipList"></ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">最近扫描</div>
+      <div class="card-value small" id="lastScanDate">—</div>
+      <div class="card-delta" id="daysSince">—</div>
+    </div>
+  </div>
+
+  <!-- 图表区 -->
+  <div class="charts">
+    <div class="chart-box wide">
+      <div class="chart-title">引用率趋势</div>
+      <div class="chart-wrap" id="trendChartWrap">
+        <canvas id="trendChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">竞品密度 · 按 Query</div>
+      <div class="chart-wrap tall">
+        <canvas id="competitorChart"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">内容类型分布</div>
+      <div class="chart-wrap tall">
+        <canvas id="contentTypeChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Query 状态表 -->
+  <div class="table-box">
+    <div class="chart-title" style="margin-bottom:16px">逐条 Query 状态</div>
+    <table>
+      <thead><tr><th>#</th><th>探测 Query</th><th>意图</th><th>文章</th><th>引用状态</th><th>竞品数</th><th>竞品密度</th></tr></thead>
+      <tbody id="queryTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- 百度搜索 · 第一方数据（站长平台） -->
+  <div class="table-box">
+    <div class="chart-title" style="margin-bottom:8px">百度搜索 · 第一方数据（站长平台）</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:16px">百度站长平台导出的第一方搜索数据——用户在百度真实搜索、官网 piesat.cn 被展现/点击的真实回流（非人工抽样）。口径：<strong style="color:#888">「展现」= 官网出现在该词结果中；「点击」= 用户点进官网；「点击率」= 点击 ÷ 展现；「排名」为百度平均排名（仅 PC 端）</strong>。垃圾流量与疑似无关词已自动标灰，不计入有效监测。</div>
+    <div class="bsc-cards" id="bscCards"></div>
+    <div class="bsc-tabs" id="bscTabs"></div>
+    <div class="bsc-table-wrap" id="bscTableWrap"></div>
+  </div>
+
+  <!-- 百度搜索（人工抽样） -->
+  <div class="table-box">
+    <div class="chart-title" style="margin-bottom:8px">百度搜索 · 人工抽样</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:16px">百度无开放排名 API，此层为人工抽样——每周去百度搜核心 query，记录官网 piesat.cn 排名。判定口径：<strong style="color:#888">官网进入百度结果前 10 名算「已上榜」</strong>，名次 = 排名。</div>
+    <div id="baiduBody"></div>
+
+    <div class="ai-filler">
+      <div class="ai-filler-head">
+        <span class="ai-filler-title">填写本次百度抽样</span>
+        <label class="ai-filler-date">抽样日期 <input type="date" id="baiduDate"></label>
+      </div>
+      <div class="ai-filler-summary">
+        <label>本周小结（备注，可选）<input type="text" id="baiduSummary" placeholder="如：官网博客在「雷达卫星为什么能穿透云层」排第1"></label>
+      </div>
+      <table class="ai-fill-table">
+        <thead><tr><th>#</th><th>探测 Query</th><th>百度排名</th></tr></thead>
+        <tbody id="baiduFillerBody"></tbody>
+      </table>
+      <div class="ai-filler-actions">
+        <button class="ai-btn" onclick="genBaiduJson()">生成 JSON</button>
+        <button class="ai-btn ai-btn-alt" id="baiduCopyBtn" onclick="copyBaiduJson()" disabled>复制 JSON</button>
+      </div>
+      <textarea id="baiduJsonOut" class="ai-json-out" placeholder="点「生成 JSON」后，这里出现可回填 tracking-data.json 的 baiduScans 片段。"></textarea>
+      <div class="ai-filler-hint">每格选「未上榜」或百度排名（第1–10名）。只填你实际查过的 query，没查的保持「未上榜」或生成后删掉该行。</div>
+    </div>
+  </div>
+
+  <!-- AI 引擎真实引用（豆包 / DeepSeek API 自动探测） -->
+  <div class="table-box">
+    <div class="chart-title" style="margin-bottom:8px">AI 引擎真实引用 · API 自动探测（豆包 / 方舟 / DeepSeek）</div>
+    <div style="font-size:12px;color:#aaa;margin-bottom:16px">豆包·搜索（豆包搜索 API）、豆包·模型（方舟 Responses API 豆包 seed-2-0-mini）、方舟DeepSeek（方舟托管 DeepSeek）、DeepSeek（官方 Responses API web_search）均已 API 自动探测，Kimi 暂不支持稳定引用监测。判定口径：<strong style="color:#888">官网 piesat.cn 被引用才算「已引用」</strong>，名次 = 它在结果列表里的序号；头条号等第三方账号被引用不计入官网命中，但可在小结里备注。</div>
+    <div id="aiEngineBody"></div>
+
+    <!-- 抽样填写器：页面勾选 → 生成 JSON → 复制回填 -->
+    <div class="ai-filler">
+      <div class="ai-filler-head">
+        <span class="ai-filler-title">填写本次抽样</span>
+        <label class="ai-filler-date">抽样日期 <input type="date" id="aiDate"></label>
+      </div>
+      <div class="ai-filler-summary">
+        <label>本周小结（备注，可选）<input type="text" id="aiSummary" placeholder="如：豆包引用源第6为航天宏图头条号，官网未上榜"></label>
+      </div>
+      <table class="ai-fill-table">
+        <thead><tr><th>#</th><th>探测 Query</th><th>豆包·搜索</th><th>豆包·模型</th><th>方舟DeepSeek</th><th>DeepSeek</th><th>Kimi·暂不支持</th></tr></thead>
+        <tbody id="aiFillerBody"></tbody>
+      </table>
+      <div class="ai-filler-actions">
+        <button class="ai-btn" onclick="genAiJson()">生成 JSON</button>
+        <button class="ai-btn ai-btn-alt" id="aiCopyBtn" onclick="copyAiJson()" disabled>复制 JSON</button>
+      </div>
+      <textarea id="aiJsonOut" class="ai-json-out" placeholder="点「生成 JSON」后，这里会出现可回填的 aiScans 片段。复制后粘贴进 tracking-data.json 的 aiScans 数组保存即可。"></textarea>
+      <div class="ai-filler-hint">每格选「未引用」或引用名次（#1–#20）。口径：<strong>「已引用」= 官网 piesat.cn 被引用</strong>，名次 = 它在引用源列表里的序号；今日头条 / 知乎等第三方账号被引用、但官网未上榜，记「未引用」并在小结里备注。只填你实际问过的引擎，生成后没问的 query 行可整行删掉。</div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    <span>口径：WebSearch 自动化探测（每周）＋ AI 引擎 API 自动探测（豆包 / 方舟 / DeepSeek 已接入）</span>
+    <span>航天宏图 GEO 监测 · 素雅风格</span>
+  </div>
+
+</div>
+
+<script>
+// ========== 配置 ==========
+const QUERY_LIST_URL = 'data/query-list.json';
+const TRACKING_DATA_URL = 'data/aggregated/trends.json';
+
+// ========== 加载数据 ==========
+async function loadData() {
+  const [qlRes, tdRes] = await Promise.all([
+    fetch(QUERY_LIST_URL),
+    fetch(TRACKING_DATA_URL)
+  ]);
+  const queryList = await qlRes.json();
+  const tracking = await tdRes.json();
+  render(queryList, tracking);
+}
+
+// ========== 渲染 ==========
+function render(queryList, tracking) {
+  const scans = tracking.scans;
+  const latest = scans[scans.length - 1];
+  const latestQueries = latest.queries;
+  const queryMap = {};
+  queryList.forEach(q => { queryMap[q.id] = q; });
+
+  // --- 头部 ---
+  document.getElementById('projectName').textContent = tracking.project + ' · GEO 监测';
+  document.getElementById('scanCount').textContent = `共 ${scans.length} 次扫描`;
+  document.getElementById('targetSite').textContent = tracking.targetSite;
+
+  // --- 概览卡片 ---
+  document.getElementById('totalQueries').textContent = queryList.length;
+  renderQueryTip(queryList);
+  const hitCount = latestQueries.filter(q => q.found).length;
+  const hitPct = latestQueries.length ? Math.round(hitCount / latestQueries.length * 100) : 0;
+  document.getElementById('hitRate').textContent = hitPct + '%';
+  if (scans.length > 1) {
+    const prev = scans[scans.length - 2].queries;
+    const prevHit = prev.filter(q => q.found).length;
+    const delta = hitCount - prevHit;
+    const el = document.getElementById('hitDelta');
+    if (delta > 0) { el.textContent = '↑ +' + delta + ' 条'; el.className = 'card-delta up'; }
+    else if (delta < 0) { el.textContent = '↓ ' + delta + ' 条'; el.className = 'card-delta down'; }
+    else { el.textContent = '持平'; el.className = 'card-delta'; }
+  } else {
+    document.getElementById('hitDelta').textContent = '首次基线';
+  }
+  const avgComp = Math.round(latestQueries.reduce((s,q)=>s+q.competitorCount,0) / latestQueries.length * 10) / 10;
+  document.getElementById('avgCompetitor').textContent = avgComp + ' 条';
+  renderCompTip(queryList, latestQueries);
+  document.getElementById('lastScanDate').textContent = latest.date;
+  const daysAgo = Math.floor((Date.now() - new Date(latest.date)) / 86400000);
+  document.getElementById('daysSince').textContent = daysAgo === 0 ? '今天' : daysAgo + ' 天前';
+
+  const statusBadge = document.getElementById('statusBadge');
+  if (hitPct > 0) { statusBadge.textContent = '已发现引用'; statusBadge.style.background='rgba(34,197,94,0.1)'; statusBadge.style.color='#22c55e'; }
+  else if (scans.length === 1) { statusBadge.textContent = '基线建立'; }
+  else { statusBadge.textContent = '监测中'; }
+
+  // --- 趋势图 ---
+  renderTrendChart(scans, queryList.length);
+
+  // --- 竞品密度柱状图 ---
+  renderCompetitorChart(queryList, latestQueries);
+
+  // --- 内容类型饼图 ---
+  renderContentTypeChart(latestQueries);
+
+  // --- 表格 ---
+  renderQueryTable(queryList, queryMap, latestQueries);
+
+  // --- 百度搜索人工抽样 ---
+  renderBaidu(tracking.baiduScans || [], queryList, queryMap);
+  renderBaiduFiller(queryList);
+
+  // --- AI 引擎人工抽样 ---
+  renderAiEngine(tracking.aiScans || [], queryList, queryMap);
+
+  // --- AI 引擎抽样填写器 ---
+  renderAiFiller(queryList);
+
+  // --- 百度第一方数据（站长平台） ---
+  renderSearchConsole(tracking.baiduSearchConsole);
+}
+
+// ========== 趋势图 ==========
+let trendChartInst = null;
+function renderTrendChart(scans, totalQueries) {
+  const labels = scans.map(s => s.date);
+  const data = scans.map(s => {
+    const found = s.queries.filter(q => q.found).length;
+    return Math.round(found / totalQueries * 100);
+  });
+  const avgCompData = scans.map(s => Math.round(s.queries.reduce((a,q)=>a+q.competitorCount,0) / s.queries.length * 10) / 10);
+
+  const ctx = document.getElementById('trendChart').getContext('2d');
+  if (trendChartInst) trendChartInst.destroy();
+  trendChartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '引用命中率 (%)',
+          data,
+          borderColor: '#4a90d9',
+          backgroundColor: 'rgba(74,144,217,0.06)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 6,
+          pointBackgroundColor: '#4a90d9',
+          yAxisID: 'y'
+        },
+        {
+          label: '平均竞品数',
+          data: avgCompData,
+          borderColor: '#d4a76a',
+          backgroundColor: 'transparent',
+          borderDash: [4,4],
+          tension: 0.3,
+          pointRadius: 5,
+          pointBackgroundColor: '#d4a76a',
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { intersect: false, mode: 'index' },
+      plugins: { legend: { labels: { usePointStyle: true, padding: 24, font: { size: 12 } } } },
+      scales: {
+        y: {
+          type: 'linear',
+          position: 'left',
+          min: 0,
+          max: 100,
+          ticks: { callback: v => v + '%', font: { size: 11 } },
+          grid: { color: '#f0f0f0' }
+        },
+        y1: {
+          type: 'linear',
+          position: 'right',
+          min: 0,
+          max: 15,
+          ticks: { callback: v => v + '条', font: { size: 11 } },
+          grid: { display: false }
+        },
+        x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ========== 竞品密度柱状图 ==========
+let competitorChartInst = null;
+function renderCompetitorChart(queryList, latestQueries) {
+  const labels = queryList.map(q => 'Q' + q.id);
+  const data = latestQueries.map(q => q.competitorCount);
+  const colors = data.map(v => v >= 9 ? 'rgba(232,69,60,0.6)' : v >= 7 ? 'rgba(212,167,106,0.6)' : 'rgba(74,144,217,0.6)');
+
+  const ctx = document.getElementById('competitorChart').getContext('2d');
+  if (competitorChartInst) competitorChartInst.destroy();
+  competitorChartInst = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: '竞品结果数', data, backgroundColor: colors, borderRadius: 4 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { min: 0, max: 12, ticks: { stepSize: 2, font: { size: 11 } }, grid: { color: '#f0f0f0' } },
+        y: { ticks: { font: { size: 11 } }, grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ========== 内容类型饼图 ==========
+let contentTypeChartInst = null;
+function renderContentTypeChart(latestQueries) {
+  let totalArticle = 0, totalVideo = 0, totalQa = 0;
+  latestQueries.forEach(q => {
+    totalArticle += q.contentTypes.article || 0;
+    totalVideo += q.contentTypes.video || 0;
+    totalQa += q.contentTypes.qa || 0;
+  });
+
+  const ctx = document.getElementById('contentTypeChart').getContext('2d');
+  if (contentTypeChartInst) contentTypeChartInst.destroy();
+  contentTypeChartInst = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['文章', '视频', '问答'],
+      datasets: [{
+        data: [totalArticle, totalVideo, totalQa],
+        backgroundColor: ['rgba(74,144,217,0.7)', 'rgba(212,167,106,0.7)', 'rgba(34,197,94,0.7)'],
+        borderColor: '#fff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true, font: { size: 12 } } },
+        tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' 条' } }
+      }
+    }
+  });
+}
+
+// ========== 探测词组悬停明细 ==========
+function renderQueryTip(queryList) {
+  const list = document.getElementById('queryTipList');
+  list.innerHTML = queryList.map(q => {
+    const art = q.article ? `<span class="tip-art">${q.article}</span>` : '';
+    const pending = q.status === '待发布' ? '<span class="tip-pending">待发布</span>' : '';
+    return `<li><span class="tip-text">${q.text}</span><span class="tip-meta">${art}${pending}</span></li>`;
+  }).join('');
+}
+
+// ========== 逐条竞品数悬停明细 ==========
+function renderCompTip(queryList, latestQueries) {
+  const list = document.getElementById('compTipList');
+  const queryMap = {};
+  queryList.forEach(q => { queryMap[q.id] = q; });
+  const rows = latestQueries.slice().sort((a, b) => b.competitorCount - a.competitorCount);
+  const maxComp = Math.max(...latestQueries.map(q => q.competitorCount), 1);
+  list.innerHTML = rows.map(q => {
+    const text = queryMap[q.id] ? queryMap[q.id].text : '—';
+    const pct = Math.round(q.competitorCount / maxComp * 100);
+    return `<li><span class="tip-text">${text}</span><span class="tip-meta"><span style="font-size:13px;color:#333;font-weight:600">${q.competitorCount} 条</span><span class="bar-mini"><span class="bar-mini-inner" style="width:${pct}%"></span></span></span></li>`;
+  }).join('');
+}
+
+// ========== Query 状态表格 ==========
+function renderQueryTable(queryList, queryMap, latestQueries) {
+  const tbody = document.getElementById('queryTableBody');
+  tbody.innerHTML = '';
+  const scanMap = {};
+  latestQueries.forEach(q => { scanMap[q.id] = q; });
+  const maxComp = Math.max(...latestQueries.map(q => q.competitorCount), 1);
+
+  queryList.forEach(qDef => {
+    const q = scanMap[qDef.id];
+    const pct = q ? Math.round(q.competitorCount / maxComp * 100) : 0;
+
+    let statusHtml;
+    if (qDef.status === '待发布') {
+      statusHtml = '<span class="tag-sm" style="background:rgba(212,167,106,0.12);color:#b9893f">待发布</span>';
+    } else if (qDef.status === '未覆盖') {
+      statusHtml = '<span class="tag-sm" style="background:#f6f3ee;color:#b9893f">未覆盖</span>';
+    } else if (!q) {
+      statusHtml = '<span class="tag-sm" style="background:#f0f0f0;color:#aaa">未扫描</span>';
+    } else if (q.found) {
+      statusHtml = '<span class="dot found"></span>已引用 #' + (q.rank != null ? q.rank : '—');
+    } else {
+      statusHtml = '<span class="dot miss"></span>未引用';
+    }
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:#999;font-size:12px">${qDef.id}</td>
+      <td style="font-size:13px">${qDef.text}</td>
+      <td><span class="tag-sm tag-intent">${qDef.intent}</span></td>
+      <td style="font-size:12px;color:#999">${qDef.article ? qDef.article : '—'}</td>
+      <td>${statusHtml}</td>
+      <td>${q ? q.competitorCount : '—'}</td>
+      <td>${q ? `<span style="font-size:11px;color:#999">${pct}%</span><span class="bar-mini"><span class="bar-mini-inner" style="width:${pct}%"></span></span>` : '—'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// ========== AI 引擎真实引用（人工抽样） ==========
+const AI_ENGINES = [
+  { key: 'doubao',   label: '豆包·搜索' },
+  { key: 'doubao_model', label: '豆包·模型' },
+  { key: 'ark_deepseek', label: '方舟DeepSeek' },
+  { key: 'deepseek', label: 'DeepSeek' },
+  { key: 'kimi',     label: 'Kimi·暂不支持' }
+];
+
+function renderAiEngine(aiScans, queryList, queryMap) {
+  const box = document.getElementById('aiEngineBody');
+  if (!aiScans || aiScans.length === 0) {
+    box.innerHTML = '<div style="color:#999;font-size:13px;line-height:1.9;padding:8px 0">尚未抽样。请按下方填写说明，每周去豆包 / DeepSeek 各问一遍核心 query，记录航天宏图是否被引用、引用在第几条，回填 tracking-data.json 的 <code style="background:#f2f2f2;padding:1px 6px;border-radius:3px">aiScans</code> 字段。</div>';
+    return;
+  }
+  const latest = aiScans[aiScans.length - 1];
+  const qs = latest.queries || [];
+  const rows = qs.map(q => {
+    const qDef = queryMap[q.id];
+    const cells = AI_ENGINES.map(e => {
+      const eng = q.engines && q.engines[e.key];
+      if (!eng) return '<td style="color:#ccc">未抽样</td>';
+      if (eng.found) return '<td><span class="dot found"></span>已引用 #' + (eng.rank != null ? eng.rank : '—') + '</td>';
+      return '<td><span class="dot miss"></span>未引用</td>';
+    }).join('');
+    return '<tr><td style="color:#999;font-size:12px">' + q.id + '</td><td style="font-size:13px">' + (qDef ? qDef.text : '—') + '</td>' + cells + '</tr>';
+  }).join('');
+
+  box.innerHTML = '<div style="font-size:12px;color:#999;margin-bottom:10px">抽样日期：' + latest.date + ' · ' + (latest.summary || '') + '</div><table><thead><tr><th>#</th><th>探测 Query</th>' + AI_ENGINES.map(e => '<th>' + e.label + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+// ========== AI 引擎抽样填写器 ==========
+function renderAiFiller(queryList) {
+  const tbody = document.getElementById('aiFillerBody');
+  const opts = '<option value="">未引用</option>' + Array.from({length:20}, (_,i) => `<option value="${i+1}">#${i+1}</option>`).join('');
+  tbody.innerHTML = queryList.map(q => {
+    const cells = AI_ENGINES.map(e => `<td><select class="ai-sel" data-q="${q.id}" data-e="${e.key}">${opts}</select></td>`).join('');
+    return `<tr><td style="color:#999;font-size:12px">${q.id}</td><td style="font-size:13px">${q.text}</td>${cells}</tr>`;
+  }).join('');
+  const d = new Date();
+  const iso = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.getElementById('aiDate').value = iso;
+}
+
+function genAiJson() {
+  const date = document.getElementById('aiDate').value || 'YYYY-MM-DD';
+  const summary = document.getElementById('aiSummary').value.trim() || '（本周抽样小结，可自行改）';
+  const queries = [];
+  document.querySelectorAll('#aiFillerBody tr').forEach(tr => {
+    const qId = parseInt(tr.querySelector('.ai-sel').dataset.q);
+    const engines = {};
+    tr.querySelectorAll('.ai-sel').forEach(sel => {
+      const v = sel.value;
+      engines[sel.dataset.e] = v === '' ? {found:false, rank:null} : {found:true, rank:parseInt(v)};
+    });
+    queries.push({id: qId, engines});
+  });
+  const scan = { date, source: 'ai-engine-manual', summary, queries };
+  document.getElementById('aiJsonOut').value = JSON.stringify(scan, null, 2);
+  document.getElementById('aiCopyBtn').disabled = false;
+}
+
+function copyAiJson() {
+  const out = document.getElementById('aiJsonOut');
+  if (!out.value) return;
+  navigator.clipboard.writeText(out.value).then(() => {
+    const btn = document.getElementById('aiCopyBtn');
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => { btn.textContent = '复制 JSON'; }, 1500);
+  }).catch(() => {
+    out.select();
+    document.execCommand('copy');
+  });
+}
+
+// ========== 百度第一方数据（站长平台） ==========
+const BSC_NOISE_RE = /\.(top|tk|xyz|cc|vip|work|site|icu|fun|link|cf|ga|gq|ml)\b/i;
+const BSC_BIZ_RE = /航天宏图|宏图|pie|遥感|卫星|女娲|雷达|SAR|InSAR|干涉|无人机|应急|监测|林草|护林|水利|水文|北斗|星座|海洋|矿山|灾害|地震|复合翼|正射|航天|预警/i;
+
+let __bscData = null;
+let __bscDevice = 'mobile';
+
+function renderSearchConsole(bsc) {
+  if (!bsc) return;
+  __bscData = bsc;
+  const pc = bsc.devices.find(d => d.device === 'pc') || {rows:[], totalShow:0, totalClick:0};
+  const mb = bsc.devices.find(d => d.device === 'mobile') || {rows:[], totalShow:0, totalClick:0};
+  const totalShow = pc.totalShow + mb.totalShow;
+  const totalClick = pc.totalClick + mb.totalClick;
+  document.getElementById('bscCards').innerHTML = `
+    <div class="bsc-card"><div class="bsc-label">PC 端关键词</div><div class="bsc-value">${pc.rows.length}<small>词</small></div></div>
+    <div class="bsc-card"><div class="bsc-label">移动端关键词</div><div class="bsc-value">${mb.rows.length}<small>词</small></div></div>
+    <div class="bsc-card"><div class="bsc-label">总展现量</div><div class="bsc-value">${totalShow}</div></div>
+    <div class="bsc-card"><div class="bsc-label">总点击量</div><div class="bsc-value">${totalClick}</div></div>
+  `;
+  document.getElementById('bscTabs').innerHTML = bsc.devices.map(d =>
+    `<button class="bsc-tab ${d.device === __bscDevice ? 'active' : ''}" data-device="${d.device}" onclick="switchBsc('${d.device}')">${d.label}（${d.rows.length} 词 · 点击 ${d.totalClick}）</button>`
+  ).join('');
+  renderBscTable();
+}
+
+function switchBsc(device) {
+  __bscDevice = device;
+  document.getElementById('bscTabs').querySelectorAll('.bsc-tab').forEach(t => t.classList.toggle('active', t.dataset.device === device));
+  renderBscTable();
+}
+
+function classifyBsc(kw) {
+  if (BSC_NOISE_RE.test(kw)) return 'noise';
+  if (!BSC_BIZ_RE.test(kw)) return 'unrelated';
+  return null;
+}
+
+function renderBscTable() {
+  if (!__bscData) return;
+  const d = __bscData.devices.find(x => x.device === __bscDevice) || {rows:[]};
+  const isPc = __bscDevice === 'pc';
+  const rows = d.rows.map((r, i) => {
+    const cls = classifyBsc(r.kw);
+    const kw = cls
+      ? `<span class="noise">${r.kw}</span><span class="noise-tag ${cls === 'unrelated' ? 'unrelated' : ''}">${cls === 'noise' ? '垃圾流量' : '疑似无关'}</span>`
+      : r.kw;
+    const ctrClass = r.ctr >= 5 ? 'ctr-good' : r.ctr > 0 ? 'ctr-mid' : 'ctr-zero';
+    const ctrText = r.ctr > 0 ? (Number.isInteger(r.ctr) ? r.ctr + '%' : r.ctr.toFixed(1) + '%') : '0%';
+    const lastCell = isPc
+      ? `<td style="color:#666">${r.rank != null ? r.rank : '—'}</td>`
+      : `<td style="font-size:11px;color:#999;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${r.url}">${r.url || '—'}</td>`;
+    return `<tr>
+      <td style="color:#999;font-size:12px">${i + 1}</td>
+      <td style="font-size:13px">${kw}</td>
+      <td style="color:#666">${r.show}</td>
+      <td style="color:#666">${r.click}</td>
+      <td><span class="ctr-pill ${ctrClass}">${ctrText}</span></td>
+      ${lastCell}
+    </tr>`;
+  }).join('');
+  const lastHead = isPc ? '<th>排名</th>' : '<th>实例 url</th>';
+  document.getElementById('bscTableWrap').innerHTML = `<table><thead><tr><th>#</th><th>关键词</th><th>展现</th><th>点击</th><th>点击率</th>${lastHead}</tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// ========== 百度搜索人工抽样 ==========
+function renderBaidu(baiduScans, queryList, queryMap) {
+  const box = document.getElementById('baiduBody');
+  if (!baiduScans || baiduScans.length === 0) {
+    box.innerHTML = '<div style="color:#999;font-size:13px;line-height:1.9;padding:8px 0">尚未抽样。请用下方填写器，每周去百度搜核心 query，记录官网排名后生成 JSON 回填 baiduScans。</div>';
+    return;
+  }
+  const latest = baiduScans[baiduScans.length - 1];
+  const rows = (latest.queries || []).map(q => {
+    const qDef = queryMap[q.id];
+    return `<tr><td style="color:#999;font-size:12px">${q.id}</td><td style="font-size:13px">${qDef ? qDef.text : '—'}</td><td>${q.found ? '<span class="dot found"></span>第 ' + q.rank + ' 名' : '<span class="dot miss"></span>未上榜'}</td></tr>`;
+  }).join('');
+  box.innerHTML = '<div style="font-size:12px;color:#999;margin-bottom:10px">抽样日期：' + latest.date + ' · ' + (latest.summary || '') + '</div><table><thead><tr><th>#</th><th>探测 Query</th><th>百度排名</th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function renderBaiduFiller(queryList) {
+  const tbody = document.getElementById('baiduFillerBody');
+  const opts = '<option value="">未上榜</option>' + Array.from({length:10}, (_,i) => `<option value="${i+1}">第${i+1}名</option>`).join('');
+  tbody.innerHTML = queryList.map(q => {
+    return `<tr><td style="color:#999;font-size:12px">${q.id}</td><td style="font-size:13px">${q.text}</td><td><select class="ai-sel" data-q="${q.id}">${opts}</select></td></tr>`;
+  }).join('');
+  const d = new Date();
+  const iso = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  document.getElementById('baiduDate').value = iso;
+}
+
+function genBaiduJson() {
+  const date = document.getElementById('baiduDate').value || 'YYYY-MM-DD';
+  const summary = document.getElementById('baiduSummary').value.trim() || '（本周百度抽样小结）';
+  const queries = [];
+  document.querySelectorAll('#baiduFillerBody tr').forEach(tr => {
+    const qId = parseInt(tr.querySelector('.ai-sel').dataset.q);
+    const v = tr.querySelector('.ai-sel').value;
+    queries.push(v === '' ? {id:qId, found:false, rank:null} : {id:qId, found:true, rank:parseInt(v)});
+  });
+  const scan = { date, source: 'baidu-manual', summary, queries };
+  document.getElementById('baiduJsonOut').value = JSON.stringify(scan, null, 2);
+  document.getElementById('baiduCopyBtn').disabled = false;
+}
+
+function copyBaiduJson() {
+  const out = document.getElementById('baiduJsonOut');
+  if (!out.value) return;
+  navigator.clipboard.writeText(out.value).then(() => {
+    const btn = document.getElementById('baiduCopyBtn');
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => { btn.textContent = '复制 JSON'; }, 1500);
+  }).catch(() => {
+    out.select();
+    document.execCommand('copy');
+  });
+}
+
+// ========== 启动 ==========
+loadData().catch(err => {
+  console.error('数据加载失败:', err);
+  document.body.innerHTML = '<div style="text-align:center;padding:100px;color:#999;">数据加载失败，请确认 data/query-list.json 和 data/aggregated/trends.json 存在</div>';
+});
+</script>
+</body>
+</html>
