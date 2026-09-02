@@ -22,6 +22,7 @@ function loadKeys() {
     const local = JSON.parse(readFileSync(join(homedir(), '.config/piesat/keys.json'), 'utf8'));
     if (!keys.doubao) keys.doubao = local.doubao_search_key || '';
     if (!keys.doubao_model) keys.doubao_model = local.ark_api_key || '';
+    if (!keys.deepseek) keys.deepseek = local.deepseek_api_key || '';
   } catch { /* 本地 keys.json 不存在则跳过 */ }
   return keys;
 }
@@ -71,14 +72,44 @@ async function probeDoubaoModel(query) {
   return { found: false, rank: null };
 }
 
-// ---------- DeepSeek 官方（待接入：需 DEEPSEEK_API_KEY + 端点确认） ----------
-// async function probeDeepseek(query) { /* 官方 Responses API web_search → search_results */ }
+// ---------- DeepSeek 官方（官方 Responses API + web_search） ----------
+async function probeDeepseek(query) {
+  const res = await fetch('https://api.deepseek.com/responses', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + keys.deepseek },
+    body: JSON.stringify({
+      model: 'deepseek-v4-flash',
+      tools: [{ type: 'web_search' }],
+      input: query,
+    }),
+  });
+  const data = await res.json();
+
+  // 收集最终答案文本 + 模型主动打开的页面 URL（DeepSeek 无 url_citation，用这两种信号）
+  let answerText = '';
+  const openedUrls = [];
+  for (const item of (data.output || [])) {
+    if (item.type === 'message') {
+      for (const c of (item.content || [])) if (c.text) answerText += c.text + '\n';
+    } else if (item.type === 'web_search_call' && item.action?.type === 'open_page' && item.action?.url) {
+      openedUrls.push(item.action.url);
+    }
+  }
+
+  // 主信号：最终答案里出现官网域名
+  const hit = answerText.match(/[a-zA-Z0-9.-]*piesat\.cn/g);
+  if (hit) return { found: true, rank: 1, source: null, url: 'https://' + hit[0] };
+  // 兜底：模型主动打开过官网页面
+  const opened = openedUrls.find(u => isOfficial(u));
+  if (opened) return { found: true, rank: 1, source: null, url: opened.replace(/#.*$/, '') };
+  return { found: false, rank: null };
+}
 
 // ---------- 引擎注册表（只跑有 key 的） ----------
 const ENGINES = [
   { key: 'doubao', label: '豆包·搜索', needs: 'doubao', run: probeDoubao },
   { key: 'doubao_model', label: '豆包·模型', needs: 'doubao_model', run: probeDoubaoModel },
-  // { key: 'deepseek', label: 'DeepSeek官方', needs: 'deepseek', run: probeDeepseek },
+  { key: 'deepseek', label: 'DeepSeek官方', needs: 'deepseek', run: probeDeepseek },
 ];
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
