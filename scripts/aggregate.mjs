@@ -29,7 +29,7 @@ const consoles = readSource('baidu-console');
 const baiduSearchConsole = consoles.length ? consoles[consoles.length - 1] : null;
 
 // 4) AI 引擎（自动层）：按 date 合并多引擎 → aiScans
-const ENGINE_KEYS = ['doubao', 'doubao_model', 'ark_deepseek', 'deepseek'];
+const ENGINE_KEYS = ['doubao', 'doubao_model', 'deepseek'];
 const dates = new Set();
 for (const key of ENGINE_KEYS) {
   for (const f of readSource(key)) dates.add(f.date);
@@ -48,7 +48,7 @@ const aiScans = [...dates].sort().map(date => {
   const queries = Object.values(byId).sort((a, b) => a.id - b.id);
   const total = queries.length;
   const hit = k => queries.filter(q => q.engines[k] && q.engines[k].found).length;
-  const summary = `豆包·搜索 ${hit('doubao')}/${total}、豆包·模型 ${hit('doubao_model')}/${total}、方舟DeepSeek ${hit('ark_deepseek')}/${total}、DeepSeek官方 ${hit('deepseek')}/${total}`;
+  const summary = `豆包·搜索 ${hit('doubao')}/${total}、豆包·模型 ${hit('doubao_model')}/${total}、DeepSeek官方 ${hit('deepseek')}/${total}`;
   return { date, source: 'ai-engines-api', summary, queries };
 });
 
