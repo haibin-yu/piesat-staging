@@ -1,0 +1,183 @@
+{
+  "date": "2026-08-31",
+  "source": "websearch",
+  "summary": "补充扫描：补齐 6 条此前「未扫描」的已上线 query。产品词「pie-engine 遥感」#1、「pie 遥感软件」#2、「航天宏图 水文信息共享平台」#3、「差分干涉卫星影像处理软件」#4 已见官网（piesat.cn）引用；事实词「女娲星座卫星」「航天宏图上卫星」仍被百度百科/新闻站/股票站占据、未见官网。产品词已跑通、事实词待攻。",
+  "queries": [
+    {
+      "id": 1,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 2,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 3,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 4,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 5,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 6,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 7,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 8,
+      "found": false,
+      "rank": null,
+      "competitorCount": 9,
+      "contentTypes": {
+        "article": 9,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 9,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 10,
+      "found": false,
+      "rank": null,
+      "competitorCount": 9,
+      "contentTypes": {
+        "article": 9,
+        "video": 0,
+        "qa": 0
+      }
+    },
+    {
+      "id": 16,
+      "found": true,
+      "rank": 4,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    },
+    {
+      "id": 17,
+      "found": true,
+      "rank": 2,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    },
+    {
+      "id": 18,
+      "found": true,
+      "rank": 1,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    },
+    {
+      "id": 23,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    },
+    {
+      "id": 24,
+      "found": false,
+      "rank": null,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    },
+    {
+      "id": 27,
+      "found": true,
+      "rank": 3,
+      "competitorCount": 10,
+      "contentTypes": {
+        "article": 10,
+        "qa": 0,
+        "video": 0
+      }
+    }
+  ]
+}
