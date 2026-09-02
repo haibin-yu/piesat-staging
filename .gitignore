@@ -1,0 +1,11 @@
+# 旧格式单文件（已被 data/raw 拆分替代，仅本地保留备份）
+tracking-data.json
+
+# 旧版文档（描述已过时的 3 文件结构）
+填写说明.md
+
+# SEO 报告（不属于仪表盘）
+官网SEO*
+航天宏图8月SEO-GEO报告*
+
+.DS_Store
