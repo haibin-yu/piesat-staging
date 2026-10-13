@@ -351,7 +351,7 @@ function render(queryList, tracking) {
   renderAiFiller(queryList);
 
   // --- 百度第一方数据（站长平台） ---
-  renderSearchConsole(tracking.baiduSearchConsole);
+  renderSearchConsole(tracking.baiduSearchConsole, tracking.baiduSearchConsoleHistory);
 }
 
 // ========== 趋势图 ==========
@@ -629,19 +629,38 @@ const BSC_BIZ_RE = /航天宏图|宏图|pie|遥感|卫星|女娲|雷达|SAR|InSA
 let __bscData = null;
 let __bscDevice = 'mobile';
 
-function renderSearchConsole(bsc) {
+function renderSearchConsole(bsc, history) {
   if (!bsc) return;
   __bscData = bsc;
   const pc = bsc.devices.find(d => d.device === 'pc') || {rows:[], totalShow:0, totalClick:0};
   const mb = bsc.devices.find(d => d.device === 'mobile') || {rows:[], totalShow:0, totalClick:0};
   const totalShow = pc.totalShow + mb.totalShow;
   const totalClick = pc.totalClick + mb.totalClick;
+
+  // 上一期（环比基准）：取 history 最后一个 period，用于卡片「较 X 月」对比
+  const prev = Array.isArray(history) && history.length ? history[history.length - 1] : null;
+  const prevPc = prev ? (prev.devices.find(d => d.device === 'pc') || {rows:[], totalShow:0, totalClick:0}) : null;
+  const prevMb = prev ? (prev.devices.find(d => d.device === 'mobile') || {rows:[], totalShow:0, totalClick:0}) : null;
+  const prevTotalShow = prev ? prevPc.totalShow + prevMb.totalShow : null;
+  const prevTotalClick = prev ? prevPc.totalClick + prevMb.totalClick : null;
+  const prevAi = prev ? (prev.ai?.cited ?? null) : null;
+  const prevLabel = prev ? (parseInt(prev.period.split('-')[1]) + ' 月') : '';
+  const delta = (cur, pv) => {
+    if (!prev) return '';
+    if (pv == null) return `<div class="card-delta">较 ${prevLabel} 未监测</div>`;
+    if (pv === 0) return cur > 0 ? `<div class="card-delta up">较 ${prevLabel} 新增</div>` : `<div class="card-delta">较 ${prevLabel} 持平</div>`;
+    const r = cur / pv;
+    if (r > 1) return `<div class="card-delta up">较 ${prevLabel} ↑ ${r >= 100 ? Math.round(r) : r.toFixed(1)} 倍</div>`;
+    if (r < 1) return `<div class="card-delta down">较 ${prevLabel} ↓ ${Math.round((1 - r) * 100)}%</div>`;
+    return `<div class="card-delta">较 ${prevLabel} 持平</div>`;
+  };
+
   document.getElementById('bscCards').innerHTML = `
-    <div class="bsc-card"><div class="bsc-label">PC 端关键词</div><div class="bsc-value">${pc.rows.length}<small>词</small></div></div>
-    <div class="bsc-card"><div class="bsc-label">移动端关键词</div><div class="bsc-value">${mb.rows.length}<small>词</small></div></div>
-    <div class="bsc-card"><div class="bsc-label">总展现量</div><div class="bsc-value">${totalShow}</div></div>
-    <div class="bsc-card"><div class="bsc-label">总点击量</div><div class="bsc-value">${totalClick}</div></div>
-    <div class="bsc-card"><div class="bsc-label">AI 答案引用</div><div class="bsc-value">${bsc.ai?.cited != null ? bsc.ai.cited : '—'}<small>次</small></div></div>
+    <div class="bsc-card"><div class="bsc-label">PC 端关键词</div><div class="bsc-value">${pc.rows.length}<small>词</small></div>${delta(pc.rows.length, prevPc?.rows.length)}</div>
+    <div class="bsc-card"><div class="bsc-label">移动端关键词</div><div class="bsc-value">${mb.rows.length}<small>词</small></div>${delta(mb.rows.length, prevMb?.rows.length)}</div>
+    <div class="bsc-card"><div class="bsc-label">总展现量</div><div class="bsc-value">${totalShow}</div>${delta(totalShow, prevTotalShow)}</div>
+    <div class="bsc-card"><div class="bsc-label">总点击量</div><div class="bsc-value">${totalClick}</div>${delta(totalClick, prevTotalClick)}</div>
+    <div class="bsc-card"><div class="bsc-label">AI 答案引用</div><div class="bsc-value">${bsc.ai?.cited != null ? bsc.ai.cited : '—'}<small>次</small></div>${delta(bsc.ai?.cited ?? null, prevAi)}</div>
   `;
   document.getElementById('bscTabs').innerHTML = bsc.devices.map(d =>
     `<button class="bsc-tab ${d.device === __bscDevice ? 'active' : ''}" data-device="${d.device}" onclick="switchBsc('${d.device}')">${d.label}（${d.rows.length} 词 · 点击 ${d.totalClick}）</button>`
