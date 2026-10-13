@@ -399,6 +399,218 @@
           "rank": 6
         }
       ]
+    },
+    {
+      "date": "2026-10-13",
+      "source": "websearch",
+      "summary": "10-13 补扫：探测词表扩充至 52 条后，补扫新增 22 条 C/D 系列产品词与场景词 + 1 条 10-12 漏扫词（id10）。新增词命中 10 条：pie sar #1、pie-sar 数据处理软件 #1、pie-sar软件极化分解处理 #1、pie-sar安装包 #7、pie-ortho 卫星影像测绘处理软件 #1、航天宏图实景 #4、航天宏图 高光谱 #1、pie-sias尺度集影像分 #1、航天宏图尺度分析软件效果 #1、航天宏图pie遥感软件 #1。未命中多为纯英文产品名（pie-ortho/pie-hyp/pie sias 被海外索引匹配到牙科/无结果/无关内容）或通用能力词（点云处理软件/dom dem/天空地一体化安全监测 被国外软件/政府站占据）。",
+      "queries": [
+        {
+          "id": 1,
+          "found": true,
+          "rank": 5
+        },
+        {
+          "id": 2,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 3,
+          "found": true,
+          "rank": 2
+        },
+        {
+          "id": 4,
+          "found": true,
+          "rank": 3
+        },
+        {
+          "id": 5,
+          "found": true,
+          "rank": 6
+        },
+        {
+          "id": 6,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 7,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 8,
+          "found": true,
+          "rank": 3
+        },
+        {
+          "id": 9,
+          "found": true,
+          "rank": 3
+        },
+        {
+          "id": 10,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 11,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 15,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 16,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 17,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 18,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 19,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 23,
+          "found": true,
+          "rank": 3
+        },
+        {
+          "id": 24,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 27,
+          "found": true,
+          "rank": 6
+        },
+        {
+          "id": 31,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 32,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 33,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 34,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 35,
+          "found": true,
+          "rank": 7
+        },
+        {
+          "id": 36,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 37,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 38,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 39,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 40,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 41,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 42,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 43,
+          "found": true,
+          "rank": 4
+        },
+        {
+          "id": 44,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 45,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 46,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 47,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 48,
+          "found": false,
+          "rank": null
+        },
+        {
+          "id": 49,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 50,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 51,
+          "found": true,
+          "rank": 1
+        },
+        {
+          "id": 52,
+          "found": false,
+          "rank": null
+        }
+      ]
     }
   ],
   "baiduScans": [
