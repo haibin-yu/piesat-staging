@@ -304,7 +304,7 @@ function render(queryList, tracking) {
   renderQueryTip(queryList);
   const hitCount = latestQueries.filter(q => q.found).length;
   const hitPct = latestQueries.length ? Math.round(hitCount / latestQueries.length * 100) : 0;
-  document.getElementById('hitRate').textContent = hitPct + '%';
+  document.getElementById('hitRate').textContent = hitCount + ' 条';
   if (scans.length > 1) {
     const prev = scans[scans.length - 2].queries;
     const prevHit = prev.filter(q => q.found).length;
@@ -321,7 +321,7 @@ function render(queryList, tracking) {
   renderCompTip(queryList, latestQueries);
   document.getElementById('lastScanDate').textContent = latest.date;
   const daysAgo = Math.floor((Date.now() - new Date(latest.date)) / 86400000);
-  document.getElementById('daysSince').textContent = daysAgo === 0 ? '今天' : daysAgo + ' 天前';
+  document.getElementById('daysSince').textContent = daysAgo === 0 ? latest.date : daysAgo + ' 天前';
 
   const statusBadge = document.getElementById('statusBadge');
   if (hitPct > 0) { statusBadge.textContent = '已发现引用'; statusBadge.style.background='rgba(34,197,94,0.1)'; statusBadge.style.color='#22c55e'; }
@@ -329,7 +329,7 @@ function render(queryList, tracking) {
   else { statusBadge.textContent = '监测中'; }
 
   // --- 趋势图 ---
-  renderTrendChart(scans, queryList.length);
+  renderTrendChart(scans);
 
   // --- 竞品密度柱状图 ---
   renderCompetitorChart(queryList, latestQueries);
@@ -356,12 +356,11 @@ function render(queryList, tracking) {
 
 // ========== 趋势图 ==========
 let trendChartInst = null;
-function renderTrendChart(scans, totalQueries) {
+function renderTrendChart(scans) {
   const labels = scans.map(s => s.date);
-  const data = scans.map(s => {
-    const found = s.queries.filter(q => q.found).length;
-    return Math.round(found / totalQueries * 100);
-  });
+  const data = scans.map(s => s.queries.filter(q => q.found).length);
+  const maxHit = Math.max(...data, 1);
+  const yMax = Math.max(10, Math.ceil(maxHit * 1.2 / 5) * 5);
   const avgCompData = scans.map(s => Math.round(s.queries.reduce((a,q)=>a+q.competitorCount,0) / s.queries.length * 10) / 10);
 
   const ctx = document.getElementById('trendChart').getContext('2d');
@@ -372,7 +371,7 @@ function renderTrendChart(scans, totalQueries) {
       labels,
       datasets: [
         {
-          label: '引用命中率 (%)',
+          label: '引用命中 (条)',
           data,
           borderColor: '#4a90d9',
           backgroundColor: 'rgba(74,144,217,0.06)',
@@ -405,8 +404,8 @@ function renderTrendChart(scans, totalQueries) {
           type: 'linear',
           position: 'left',
           min: 0,
-          max: 100,
-          ticks: { callback: v => v + '%', font: { size: 11 } },
+          max: yMax,
+          ticks: { callback: v => v + ' 条', font: { size: 11 } },
           grid: { color: '#f0f0f0' }
         },
         y1: {
