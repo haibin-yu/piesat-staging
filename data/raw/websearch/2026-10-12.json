@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-12",
+  "source": "websearch",
+  "summary": "9 月报告补扫。已上线文章对应词（A1/A2/A3/A4/B1/B2/B3/B4）全部进入结果前列（#1–#6），对比 8 月「通用词零引用」是质变；产品词「pie 遥感软件」「pie-engine 遥感」守住 #1；事实词「女娲星座卫星」从被百科/新闻截胡跃升至官网 A4 #3。仍未攻克的 5 词：商业意向词「智慧应急监测 推荐/龙头」（被海康/华测/辰安占据）、纯产品词「差分干涉卫星影像处理软件」（被 GAMMA/GDEMSI 等国外软件占据）、品牌信任词「航天宏图是国企还是央企」「航天宏图上卫星」（被股票/就业/新闻站占据）。有效扫描 18 词命中 13，命中率 72%（8 月 25%）。",
+  "queries": [
+    {"id": 1, "found": true, "rank": 5},
+    {"id": 2, "found": true, "rank": 1},
+    {"id": 3, "found": true, "rank": 2},
+    {"id": 4, "found": true, "rank": 3},
+    {"id": 5, "found": true, "rank": 6},
+    {"id": 6, "found": true, "rank": 1},
+    {"id": 7, "found": true, "rank": 1},
+    {"id": 8, "found": true, "rank": 3},
+    {"id": 9, "found": true, "rank": 3},
+    {"id": 11, "found": false, "rank": null},
+    {"id": 15, "found": false, "rank": null},
+    {"id": 16, "found": false, "rank": null},
+    {"id": 17, "found": true, "rank": 1},
+    {"id": 18, "found": true, "rank": 1},
+    {"id": 19, "found": false, "rank": null},
+    {"id": 23, "found": true, "rank": 3},
+    {"id": 24, "found": false, "rank": null},
+    {"id": 27, "found": true, "rank": 6}
+  ]
+}
