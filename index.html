@@ -636,6 +636,7 @@ function renderSearchConsole(bsc) {
     <div class="bsc-card"><div class="bsc-label">移动端关键词</div><div class="bsc-value">${mb.rows.length}<small>词</small></div></div>
     <div class="bsc-card"><div class="bsc-label">总展现量</div><div class="bsc-value">${totalShow}</div></div>
     <div class="bsc-card"><div class="bsc-label">总点击量</div><div class="bsc-value">${totalClick}</div></div>
+    <div class="bsc-card"><div class="bsc-label">AI 答案引用</div><div class="bsc-value">${bsc.ai?.cited != null ? bsc.ai.cited : '—'}<small>次</small></div></div>
   `;
   document.getElementById('bscTabs').innerHTML = bsc.devices.map(d =>
     `<button class="bsc-tab ${d.device === __bscDevice ? 'active' : ''}" data-device="${d.device}" onclick="switchBsc('${d.device}')">${d.label}（${d.rows.length} 词 · 点击 ${d.totalClick}）</button>`
