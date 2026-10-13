@@ -283,6 +283,11 @@ async function loadData() {
 
 // ========== 渲染 ==========
 function render(queryList, tracking) {
+  // 数据规范化：不同时期的扫描字段可能不全（如 10-12 补扫只有 found/rank，缺 competitorCount/contentTypes），统一补默认值
+  tracking.scans.forEach(s => s.queries.forEach(q => {
+    q.competitorCount = q.competitorCount || 0;
+    q.contentTypes = q.contentTypes || { article: 0, video: 0, qa: 0 };
+  }));
   const scans = tracking.scans;
   const latest = scans[scans.length - 1];
   const latestQueries = latest.queries;
