@@ -645,9 +645,9 @@ function renderSearchConsole(bsc, history) {
   const prevTotalClick = prev ? prevPc.totalClick + prevMb.totalClick : null;
   const prevAi = prev ? (prev.ai?.cited ?? null) : null;
   const prevLabel = prev ? (parseInt(prev.period.split('-')[1]) + ' 月') : '';
-  const delta = (cur, pv) => {
+  const delta = (cur, pv, nullLabel) => {
     if (!prev) return '';
-    if (pv == null) return `<div class="card-delta">较 ${prevLabel} 未监测</div>`;
+    if (pv == null) return `<div class="card-delta">${nullLabel || `较 ${prevLabel} 未监测`}</div>`;
     if (pv === 0) return cur > 0 ? `<div class="card-delta up">较 ${prevLabel} 新增</div>` : `<div class="card-delta">较 ${prevLabel} 持平</div>`;
     const r = cur / pv;
     if (r > 1) return `<div class="card-delta up">较 ${prevLabel} ↑ ${r >= 100 ? Math.round(r) : r.toFixed(1)} 倍</div>`;
@@ -660,7 +660,7 @@ function renderSearchConsole(bsc, history) {
     <div class="bsc-card"><div class="bsc-label">移动端关键词</div><div class="bsc-value">${mb.rows.length}<small>词</small></div>${delta(mb.rows.length, prevMb?.rows.length)}</div>
     <div class="bsc-card"><div class="bsc-label">总展现量</div><div class="bsc-value">${totalShow}</div>${delta(totalShow, prevTotalShow)}</div>
     <div class="bsc-card"><div class="bsc-label">总点击量</div><div class="bsc-value">${totalClick}</div>${delta(totalClick, prevTotalClick)}</div>
-    <div class="bsc-card"><div class="bsc-label">AI 答案引用</div><div class="bsc-value">${bsc.ai?.cited != null ? bsc.ai.cited : '—'}<small>次</small></div>${delta(bsc.ai?.cited ?? null, prevAi)}</div>
+    <div class="bsc-card"><div class="bsc-label">AI 答案引用</div><div class="bsc-value">${bsc.ai?.cited != null ? bsc.ai.cited : '—'}<small>次</small></div>${delta(bsc.ai?.cited ?? null, prevAi, `${prevLabel}该功能未开启`)}</div>
   `;
   document.getElementById('bscTabs').innerHTML = bsc.devices.map(d =>
     `<button class="bsc-tab ${d.device === __bscDevice ? 'active' : ''}" data-device="${d.device}" onclick="switchBsc('${d.device}')">${d.label}（${d.rows.length} 词 · 点击 ${d.totalClick}）</button>`
