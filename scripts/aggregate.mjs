@@ -24,9 +24,10 @@ const scans = readSource('websearch');
 // 2) 百度人工搜索（手动层）→ baiduScans
 const baiduScans = readSource('baidu');
 
-// 3) 百度站长第一方（手动层）→ baiduSearchConsole（取最新 period）
+// 3) 百度站长第一方（手动层）→ baiduSearchConsole（最新 period）+ history（历史，供环比）
 const consoles = readSource('baidu-console');
 const baiduSearchConsole = consoles.length ? consoles[consoles.length - 1] : null;
+const baiduSearchConsoleHistory = consoles.slice(0, -1);
 
 // 4) AI 引擎（自动层）：按 date 合并多引擎 → aiScans
 const ENGINE_KEYS = ['doubao', 'doubao_model', 'deepseek'];
@@ -52,7 +53,7 @@ const aiScans = [...dates].sort().map(date => {
   return { date, source: 'ai-engines-api', summary, queries };
 });
 
-const trends = { ...meta, scans, baiduScans, aiScans, baiduSearchConsole };
+const trends = { ...meta, scans, baiduScans, aiScans, baiduSearchConsole, baiduSearchConsoleHistory };
 mkdirSync(join(BASE, 'data/aggregated'), { recursive: true });
 writeFileSync(OUT, JSON.stringify(trends, null, 2) + '\n', 'utf8');
 console.log(`trends.json 生成：scans=${scans.length} baidu=${baiduScans.length} ai=${aiScans.length} console=${baiduSearchConsole ? '有' : '无'}`);
