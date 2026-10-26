@@ -6808,6 +6808,996 @@
           }
         }
       ]
+    },
+    {
+      "date": "2026-10-26",
+      "source": "ai-engines-api",
+      "summary": "豆包·搜索 15/52、豆包·模型 0/52、DeepSeek官方 1/52",
+      "queries": [
+        {
+          "id": 1,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 2,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2631.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 3,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 4,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 5,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 4,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2641.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 6,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 12,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2631.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 7,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 10,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2671.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 8,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 9,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2641.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 10,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 11,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 12,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 13,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 14,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 15,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 16,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 17,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2724.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 18,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 2,
+              "source": "PIE-Engine",
+              "authority": "正常权威",
+              "url": "https://engine.piesat.cn/remote-sensing-processing"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 19,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 20,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 21,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 22,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 23,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 24,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图信息技术股份有限公司",
+              "authority": "正常权威",
+              "url": "https://piesat.cn/website/cn/pages/blog/bloginfo/3033.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 25,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 26,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 27,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 3,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2641.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 28,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 29,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 30,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/news/companyDynamics/2686.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 31,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 32,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 33,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 34,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 35,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": true,
+              "rank": 1,
+              "source": null,
+              "url": "https://www.piesat.cn"
+            }
+          }
+        },
+        {
+          "id": 36,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 37,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图信息技术股份有限公司",
+              "authority": "正常权威",
+              "url": "https://piesat.cn/website/cn/pages/blog/bloginfo/3033.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 38,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图信息技术股份有限公司",
+              "authority": "正常权威",
+              "url": "https://piesat.cn/website/cn/pages/blog/bloginfo/3033.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 39,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 40,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图信息技术股份有限公司",
+              "authority": "正常权威",
+              "url": "https://piesat.cn/website/cn/pages/blog/bloginfo/3033.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 41,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 42,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 43,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 44,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 45,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 46,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 47,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 48,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 49,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 4,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/ksa/PIE.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 50,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 51,
+          "engines": {
+            "doubao": {
+              "found": true,
+              "rank": 1,
+              "source": "航天宏图",
+              "authority": "正常权威",
+              "url": "https://www.piesat.cn/website/cn/pages/blog/bloginfo/2724.html"
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        },
+        {
+          "id": 52,
+          "engines": {
+            "doubao": {
+              "found": false,
+              "rank": null
+            },
+            "doubao_model": {
+              "found": false,
+              "rank": null,
+              "error": "fetch failed"
+            },
+            "deepseek": {
+              "found": false,
+              "rank": null
+            }
+          }
+        }
+      ]
     }
   ],
   "baiduSearchConsole": {
