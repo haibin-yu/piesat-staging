@@ -70,6 +70,11 @@ export function freezeMonth(month = prevMonth(), base = DEFAULT_BASE) {
     const queries = Object.values(byId).sort((a, b) => a.id - b.id);
     return { date, queries };
   });
+  if (rounds.length === 0) {
+    mergeMonthly(month, { ai: null }, base);
+    upsertSummaryMonth({ month, aiHitRate: null, probedTotal: null }, base);
+    return null;
+  }
   const ai = buildAi(rounds);
   mergeMonthly(month, { ai }, base);
   upsertSummaryMonth({ month, aiHitRate: ai.summary.hitRate, probedTotal: ai.summary.probedTotal }, base);
