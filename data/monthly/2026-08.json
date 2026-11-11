@@ -1,0 +1,22 @@
+{
+  "month": "2026-08",
+  "frozenAt": "2026-11-11T09:59:57.332Z",
+  "baiduConsole": {
+    "period": "2026-08",
+    "pc": {
+      "keywords": 31,
+      "show": 86,
+      "click": 2
+    },
+    "mobile": {
+      "keywords": 152,
+      "show": 326,
+      "click": 9
+    },
+    "ai": {
+      "cited": null
+    }
+  },
+  "ai": null,
+  "competitorInsight": "8 月竞品内容形态：海外索引结果以文章为主（竞品约 10 条/词），视频与问答内容为 0，存在视频/问答占位空白。"
+}
