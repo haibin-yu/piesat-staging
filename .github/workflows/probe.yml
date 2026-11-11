@@ -20,20 +20,30 @@ jobs:
         with:
           node-version: '20'
 
-      - name: 探测 + 聚合
-        run: |
-          node scripts/probe.mjs
-          node scripts/aggregate.mjs
+      # 各引擎独立探测：单引擎失败不中断整个 workflow（成本护栏——密钥过期时跳过该引擎、其余照跑、下次补跑）
+      - name: 探测 豆包·搜索
+        continue-on-error: true
+        run: node scripts/probe.mjs doubao
         env:
           DOUBAO_SEARCH_KEY: ${{ secrets.DOUBAO_SEARCH_KEY }}
+
+      - name: 探测 豆包·模型
+        continue-on-error: true
+        run: node scripts/probe.mjs doubao_model
+        env:
           ARK_API_KEY: ${{ secrets.ARK_API_KEY }}
+
+      - name: 探测 DeepSeek
+        continue-on-error: true
+        run: node scripts/probe.mjs deepseek
+        env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
 
       - name: 提交数据变更
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add data/raw/
           if git diff --cached --quiet; then
             echo "本次探测无数据变化，跳过提交"
           else
