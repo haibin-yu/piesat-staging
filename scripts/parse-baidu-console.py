@@ -4,14 +4,14 @@
 # 依赖：numbers_parser（pip install numbers-parser）
 from numbers_parser import Document
 
-PC_PATH = "/Users/haibinyu/Desktop/航天宏图/数据监测/数据监测9月/官网pc端.numbers"
-MB_PATH = "/Users/haibinyu/Desktop/航天宏图/数据监测/数据监测9月/官网移动端.numbers"
-OUT = "/Users/haibinyu/Desktop/航天宏图/geo-监测仪表盘/data/raw/baidu-console/2026-09.json"
+PC_PATH = "/Users/haibinyu/Desktop/航天宏图/数据监测/数据监测10月 /百度站长数据-10月pc端.numbers"
+MB_PATH = "/Users/haibinyu/Desktop/航天宏图/数据监测/数据监测10月 /百度站长数据-10月移动端.numbers"
+AI_PATH = "/Users/haibinyu/Desktop/航天宏图/数据监测/数据监测10月 /百度站长数据-AI热门关键词下载10月.numbers"
+OUT = "/Users/haibinyu/Desktop/航天宏图/geo-监测仪表盘/data/raw/baidu-console/2026-10.json"
 
-PERIOD = "2026-09"
-IMPORTED_AT = "2026-10-13"
-# 百度站长平台 AI 搜索模块：官网页面被 AI 答案引用的次数（AI 曝光/点击/热门关键词暂未回填）
-AI_CITED = 1850
+PERIOD = "2026-10"
+IMPORTED_AT = "2026-11-11"
+# 百度站长平台 AI 搜索模块：官网页面被 AI 答案引用的次数（10 月起导出「AI 热门关键词」明细，AI_CITED 从该文件汇总，不再硬编码）
 
 def rows_of(path):
     doc = Document(path)
@@ -51,8 +51,27 @@ def parse_mobile(path):
         })
     return out
 
+def parse_ai_keywords(path):
+    # 表头：关键词 / AI引用量 / AI曝光量 / AI点击量 / AI点击率
+    out = []
+    for i, r in enumerate(rows_of(path)):
+        if i == 0:
+            continue
+        v = [c.value for c in r]
+        kw, cited, show, click, ctr = v[0], v[1], v[2], v[3], v[4]
+        out.append({
+            "kw": str(kw).strip(),
+            "cited": int(cited or 0),
+            "show": int(show or 0),
+            "click": int(click or 0),
+            "ctr": float(str(ctr).replace('%', '')) if ctr is not None else 0.0,
+        })
+    return out
+
 pc_rows = parse_pc(PC_PATH)
 mb_rows = parse_mobile(MB_PATH)
+ai_keywords = parse_ai_keywords(AI_PATH)
+AI_CITED = sum(k["cited"] for k in ai_keywords)
 
 data = {
     "source": "baidu-search-console",
@@ -61,7 +80,8 @@ data = {
     "importedAt": IMPORTED_AT,
     "ai": {
         "cited": AI_CITED,
-        "note": "官网页面被百度 AI 答案引用的次数（百度站长平台 AI 搜索模块；AI 曝光 / 点击 / 热门关键词暂未回填）",
+        "note": "官网页面被百度 AI 答案引用的次数（百度站长平台 AI 搜索模块；AI 引用量 为「AI 热门关键词」各词 cited 之和）",
+        "keywords": ai_keywords,
     },
     "devices": [
         {
