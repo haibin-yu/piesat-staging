@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>航天宏图 · 月度监测基线模板</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:#fff;color:#2a2a2a;line-height:1.85;-webkit-font-smoothing:antialiased}
+  .doc{max-width:840px;margin:0 auto;padding:64px 24px 96px}
+  .doc-head{margin-bottom:40px;padding-bottom:28px;border-bottom:1px solid #eee}
+  .doc-kicker{font-size:12px;font-weight:600;letter-spacing:3px;color:#3b6ea5;margin-bottom:14px}
+  h1{font-size:26px;font-weight:700;color:#0f0f0f;margin:0 0 10px;letter-spacing:-0.3px}
+  .doc-sub{font-size:15px;color:#888;margin:0}
+  .doc-meta{margin-top:18px;font-size:13px;color:#aaa;display:flex;gap:22px;flex-wrap:wrap}
+  h2{font-size:19px;font-weight:700;color:#0f0f0f;margin:46px 0 12px;padding-left:12px;border-left:3px solid #3b6ea5}
+  h3{font-size:16px;font-weight:700;color:#1a1a1a;margin:26px 0 10px}
+  p{margin:0 0 14px;font-size:15px}
+  ul,ol{margin:8px 0 16px 20px;padding:0}
+  li{margin-bottom:9px;font-size:15px;color:#3a3a3a}
+  strong{color:#111}
+  code{background:#f4f6f8;padding:2px 6px;border-radius:4px;font-size:13px;color:#c7254e;font-family:'SF Mono',Menlo,Consolas,monospace}
+  table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:13.5px}
+  th,td{border:1px solid #eee;padding:10px 12px;text-align:left;vertical-align:top}
+  th{background:#f7f9fb;color:#0f0f0f;font-weight:600;white-space:nowrap}
+  td{color:#3a3a3a}
+  .lead{margin:0 0 40px;padding:22px 26px;background:#f7f9fb;border-radius:6px;border-left:3px solid #3b6ea5}
+  .lead p{margin:0;font-size:15px;color:#445}
+  .lead .lead-title{display:block;font-size:12px;font-weight:600;letter-spacing:2px;color:#3b6ea5;margin-bottom:10px}
+  .fill{color:#b05a3b}
+  .new{background:#f3f8fc}
+  .tag{display:inline-block;font-size:11px;color:#b05a3b;background:#faf5f2;border-radius:3px;padding:0 6px;margin-left:6px;white-space:nowrap}
+  .foot{margin-top:56px;padding-top:22px;border-top:1px solid #eee;font-size:12.5px;color:#aaa}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-head">
+    <div class="doc-kicker">监测基线 · 月度模板</div>
+    <h1>航天宏图月度监测基线模板</h1>
+    <p class="doc-sub">AI 引用 + 品牌词排名 + 收录 · 三个维度，每月固定测一次，记录基线并环比</p>
+    <div class="doc-meta">
+      <span>目标站点：piesat.cn</span>
+      <span>探测词表：data/query-list.json（73 条）</span>
+      <span>建立：2026 年 11 月</span>
+    </div>
+  </div>
+
+  <div class="lead">
+    <span class="lead-title">为什么现在建基线</span>
+    <p>「其他公告」子栏目上线前，进展类关键词在 AI 与搜索里官网几乎零曝光（10 月报告：AI 引用 708 次 vs 官网曝光 1 次）。上线后，这批<strong>进展 / 风险词是「从 0 到 1」的验证节点</strong>——本模板就是把「官网权威内容是否被 AI 引用、是否在搜索排前、是否被收录」量化成每月可比的数字。</p>
+  </div>
+
+  <h2>一、三个维度</h2>
+  <table>
+    <tr><th style="width:14%">维度</th><th style="width:30%">监测什么</th><th style="width:32%">数据来源</th><th>基线口径</th></tr>
+    <tr>
+      <td><strong>AI 引用</strong></td>
+      <td>AI 引擎回答探测词时，是否引用官网 piesat.cn</td>
+      <td><code>probe.mjs</code> 自动 → <code>data/raw/{doubao, doubao_model, deepseek}/日期.json</code></td>
+      <td>命中率 = 被引用词数 ÷ 探测词数</td>
+    </tr>
+    <tr>
+      <td><strong>品牌词排名</strong></td>
+      <td>品牌词 + 进展词在百度结果中官网 / 权威内容的排名</td>
+      <td>百度人工搜索 → <code>data/raw/baidu/</code>；百度站长第一方 → <code>data/raw/baidu-console/</code></td>
+      <td>首页命中数（排名 1–10）、最高排名</td>
+    </tr>
+    <tr>
+      <td><strong>收录</strong></td>
+      <td>官网页面被百度收录 / 索引情况</td>
+      <td>百度站长第一方 → <code>data/raw/baidu-console/</code></td>
+      <td>收录量、索引量、展现 / 点击</td>
+    </tr>
+  </table>
+
+  <h2>二、探测词表</h2>
+  <p>共 73 条，分三层。本次新增 21 条「进展 / 风险」词是当前监测核心（对应「其他公告」权威占位）。</p>
+
+  <h3>2.1 新增 · 进展风险词（21 条，权威占位核心）</h3>
+  <table>
+    <tr><th style="width:12%">ID</th><th>探测词</th><th style="width:12%">类别</th></tr>
+    <tr class="new"><td>53</td><td>航天宏图 预重整</td><td>品牌信任</td></tr>
+    <tr class="new"><td>54</td><td>航天宏图 重整</td><td>品牌信任</td></tr>
+    <tr class="new"><td>55</td><td>航天宏图 重整进展</td><td>品牌信任</td></tr>
+    <tr class="new"><td>56</td><td>航天宏图 重整最新消息</td><td>品牌信任</td></tr>
+    <tr class="new"><td>57</td><td>航天宏图 纾困专班</td><td>品牌信任</td></tr>
+    <tr class="new"><td>58</td><td>航天宏图 纾困工作专班</td><td>品牌信任</td></tr>
+    <tr class="new"><td>59</td><td>航天宏图 招募投资人</td><td>品牌信任</td></tr>
+    <tr class="new"><td>60</td><td>航天宏图 公开招募预重整投资人</td><td>品牌信任</td></tr>
+    <tr class="new"><td>61</td><td>航天宏图 预重整投资人</td><td>品牌信任</td></tr>
+    <tr class="new"><td>62</td><td>航天宏图 重整申请</td><td>品牌信任</td></tr>
+    <tr class="new"><td>63</td><td>航天宏图 法院 不予受理重整</td><td>品牌信任</td></tr>
+    <tr class="new"><td>64</td><td>航天宏图 退市</td><td>品牌信任</td></tr>
+    <tr class="new"><td>65</td><td>航天宏图 退市风险</td><td>品牌信任</td></tr>
+    <tr class="new"><td>66</td><td>*ST航图</td><td>品牌信任</td></tr>
+    <tr class="new"><td>67</td><td>航天宏图 证监会立案</td><td>品牌信任</td></tr>
+    <tr class="new"><td>68</td><td>航天宏图 军采暂停</td><td>品牌信任</td></tr>
+    <tr class="new"><td>69</td><td>航天宏图 可转债</td><td>品牌信任</td></tr>
+    <tr class="new"><td>70</td><td>航天宏图 三季报</td><td>品牌信任</td></tr>
+    <tr class="new"><td>71</td><td>航天宏图 净资产</td><td>品牌信任</td></tr>
+    <tr class="new"><td>72</td><td>航天宏图 最新消息</td><td>事实查询</td></tr>
+    <tr class="new"><td>73</td><td>航天宏图 股票代码</td><td>事实查询</td></tr>
+  </table>
+
+  <h3>2.2 存量 · 品牌信任词（6 条）</h3>
+  <p>「航天宏图是国企还是央企 / 股价 / 重组最新消息 / 上市时间 / 中标公告 / 获国家发明专利授权」（ID 19–22、28、30），与新增词合并后，<strong>品牌信任词共 25 条</strong>，构成当前权威占位监测的主力。</p>
+
+  <h3>2.3 存量 · 技术博客占位词（44 条）</h3>
+  <p>A / B / C / D 系列 + 产品词（PIE 系列、SAR、高光谱、实景等），对应已上线技术博客，延续原有监测，不逐条列出（见 <code>data/query-list.json</code>）。</p>
+
+  <h2>三、月度填报字段（每月固定一次）</h2>
+
+  <h3>3.1 AI 引用</h3>
+  <table>
+    <tr><th style="width:34%">指标</th><th style="width:22%">本月</th><th style="width:22%">上月</th><th>环比</th></tr>
+    <tr><td>总命中率（73 词中被引用）</td><td class="fill">___ / 73</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>豆包·搜索命中</td><td class="fill">___ / 73</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>豆包·模型命中</td><td class="fill">___ / 73</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>DeepSeek 官方命中</td><td class="fill">___ / 73</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td><strong>进展词命中（21 条，核心看点）</strong></td><td class="fill">___ / 21</td><td class="fill">___</td><td class="fill">___</td></tr>
+  </table>
+
+  <h3>3.2 品牌词排名</h3>
+  <table>
+    <tr><th style="width:34%">指标</th><th style="width:22%">本月</th><th style="width:22%">上月</th><th>环比</th></tr>
+    <tr><td>核心品牌词首页命中（航天宏图 / *ST航图 等）</td><td class="fill">___</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>进展词首页命中（预重整 / 重整 / 纾困专班 等）</td><td class="fill">___</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>最高排名（官网首页或权威内容进前几）</td><td class="fill">第 ___ 名</td><td class="fill">___</td><td class="fill">___</td></tr>
+  </table>
+
+  <h3>3.3 收录</h3>
+  <table>
+    <tr><th style="width:34%">指标</th><th style="width:22%">本月</th><th style="width:22%">上月</th><th>环比</th></tr>
+    <tr><td>官网收录量（百度站长第一方）</td><td class="fill">___</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>新增收录（其他公告相关页面）</td><td class="fill">___</td><td class="fill">___</td><td class="fill">___</td></tr>
+    <tr><td>展现 / 点击（品牌词 + 进展词）</td><td class="fill">___</td><td class="fill">___</td><td class="fill">___</td></tr>
+  </table>
+
+  <h2>四、怎么跑</h2>
+  <ul>
+    <li><strong>AI 引用（自动）</strong>：<code>node scripts/probe.mjs</code> 跑全部有密钥的引擎 → 写 <code>data/raw/&lt;engine&gt;/&lt;日期&gt;.json</code>；再 <code>node scripts/aggregate.mjs</code> 聚合到 <code>data/aggregated/trends.json</code>，页面即更新。</li>
+    <li><strong>品牌词排名（人工）</strong>：百度搜索核心词，手动记官网 / 权威内容名次到 <code>data/raw/baidu/</code>。</li>
+    <li><strong>收录（人工导出）</strong>：百度站长平台导出收录 / 索引 / 展现数据到 <code>data/raw/baidu-console/</code>。</li>
+  </ul>
+
+  <div class="foot">
+    本模板只监测「官网权威内容是否被 AI 引用、是否在搜索排前、是否被收录」，所有探测词均为用户会真实搜索的中性词，不涉及任何内容主动散布。进展类信息口径以「全国企业破产重整案件信息网」及交易所法定披露为准，官网同步遵循「先官方披露、后官网同步」铁律。
+  </div>
+
+</div>
+</body>
+</html>
