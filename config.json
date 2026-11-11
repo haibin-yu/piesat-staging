@@ -1,0 +1,7 @@
+{
+  "brandName": "航天宏图",
+  "site": "piesat.cn",
+  "title": "航天宏图 · 技术博客 · GEO 监测",
+  "engines": ["doubao", "doubao_model", "deepseek"],
+  "queryList": "data/query-list.json"
+}
