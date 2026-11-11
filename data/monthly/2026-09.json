@@ -1,0 +1,131 @@
+{
+  "month": "2026-09",
+  "frozenAt": "2026-11-11T09:54:44.988Z",
+  "ai": {
+    "weekly": [
+      {
+        "date": "2026-09-01",
+        "engines": {
+          "doubao": {
+            "hit": 3,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 3,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 4,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-09-02",
+        "engines": {
+          "doubao": {
+            "hit": 3,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 7,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 4,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-09-07",
+        "engines": {
+          "doubao": {
+            "hit": 7,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 8,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 4,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-09-14",
+        "engines": {
+          "doubao": {
+            "hit": 6,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 2,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-09-21",
+        "engines": {
+          "doubao": {
+            "hit": 4,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 1,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-09-28",
+        "engines": {
+          "doubao": {
+            "hit": 4,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 1,
+            "total": 30
+          }
+        }
+      }
+    ],
+    "summary": {
+      "hitRate": 0.133,
+      "unionHits": 4,
+      "probedTotal": 30
+    }
+  },
+  "baiduConsole": {
+    "period": "2026-09",
+    "pc": {
+      "keywords": 7118,
+      "show": 15488,
+      "click": 345
+    },
+    "mobile": {
+      "keywords": 45,
+      "show": 109,
+      "click": 1
+    },
+    "ai": {
+      "cited": 1850
+    }
+  }
+}
