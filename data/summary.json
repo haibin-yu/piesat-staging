@@ -1,0 +1,34 @@
+{
+  "months": [
+    {
+      "month": "2026-08",
+      "pcShow": 86,
+      "pcClick": 2,
+      "mobileShow": 326,
+      "mobileClick": 9,
+      "aiCited": null,
+      "aiHitRate": null,
+      "probedTotal": null
+    },
+    {
+      "month": "2026-09",
+      "aiHitRate": 0.133,
+      "probedTotal": 30,
+      "pcShow": 15488,
+      "pcClick": 345,
+      "mobileShow": 109,
+      "mobileClick": 1,
+      "aiCited": 1850
+    },
+    {
+      "month": "2026-10",
+      "pcShow": 17577,
+      "pcClick": 637,
+      "mobileShow": 487,
+      "mobileClick": 3,
+      "aiCited": 708,
+      "aiHitRate": 0.25,
+      "probedTotal": 52
+    }
+  ]
+}
