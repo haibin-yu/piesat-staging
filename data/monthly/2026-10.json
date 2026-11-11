@@ -1,0 +1,80 @@
+{
+  "month": "2026-10",
+  "frozenAt": "2026-11-11T09:59:57.626Z",
+  "baiduConsole": {
+    "period": "2026-10",
+    "pc": {
+      "keywords": 3366,
+      "show": 17577,
+      "click": 637
+    },
+    "mobile": {
+      "keywords": 169,
+      "show": 487,
+      "click": 3
+    },
+    "ai": {
+      "cited": 708
+    }
+  },
+  "ai": {
+    "weekly": [
+      {
+        "date": "2026-10-05",
+        "engines": {
+          "doubao": {
+            "hit": 4,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 0,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-10-12",
+        "engines": {
+          "doubao": {
+            "hit": 6,
+            "total": 30
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 30
+          },
+          "deepseek": {
+            "hit": 0,
+            "total": 30
+          }
+        }
+      },
+      {
+        "date": "2026-10-13",
+        "engines": {
+          "doubao": {
+            "hit": 12,
+            "total": 52
+          },
+          "doubao_model": {
+            "hit": 0,
+            "total": 52
+          },
+          "deepseek": {
+            "hit": 2,
+            "total": 52
+          }
+        }
+      }
+    ],
+    "summary": {
+      "hitRate": 0.25,
+      "unionHits": 13,
+      "probedTotal": 52
+    }
+  }
+}
