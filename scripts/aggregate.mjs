@@ -3,6 +3,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadConfig } from './config.mjs';
 
 const BASE = join(dirname(fileURLToPath(import.meta.url)), '..');
 const RAW = join(BASE, 'data/raw');
@@ -30,7 +31,7 @@ const baiduSearchConsole = consoles.length ? consoles[consoles.length - 1] : nul
 const baiduSearchConsoleHistory = consoles.slice(0, -1);
 
 // 4) AI 引擎（自动层）：按 date 合并多引擎 → aiScans
-const ENGINE_KEYS = ['doubao', 'doubao_model', 'deepseek'];
+const ENGINE_KEYS = loadConfig().engines;
 const dates = new Set();
 for (const key of ENGINE_KEYS) {
   for (const f of readSource(key)) dates.add(f.date);
