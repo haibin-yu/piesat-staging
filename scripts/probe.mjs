@@ -8,8 +8,10 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir } from 'node:os';
+import { loadConfig } from './config.mjs';
 
 const BASE = join(dirname(fileURLToPath(import.meta.url)), '..');
+const config = loadConfig();
 
 // ---------- 密钥 ----------
 function loadKeys() {
@@ -29,7 +31,7 @@ function loadKeys() {
 const keys = loadKeys();
 
 // ---------- 判定：Url 是否官网 piesat.cn ----------
-const isOfficial = url => typeof url === 'string' && url.includes('piesat.cn');
+const isOfficial = url => typeof url === 'string' && url.includes(config.site);
 
 // ---------- 豆包·搜索（搜索层，search-infinity） ----------
 async function probeDoubao(query) {
@@ -97,7 +99,8 @@ async function probeDeepseek(query) {
   }
 
   // 主信号：最终答案里出现官网域名
-  const hit = answerText.match(/[a-zA-Z0-9.-]*piesat\.cn/g);
+  const siteRe = new RegExp('[a-zA-Z0-9.-]*' + config.site.replace(/\./g, '\\.'), 'g');
+  const hit = answerText.match(siteRe);
   if (hit) return { found: true, rank: 1, source: null, url: 'https://' + hit[0] };
   // 兜底：模型主动打开过官网页面
   const opened = openedUrls.find(u => isOfficial(u));
@@ -115,7 +118,7 @@ const ENGINES = [
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function main() {
-  const queryList = JSON.parse(readFileSync(join(BASE, 'data/query-list.json'), 'utf8'));
+  const queryList = JSON.parse(readFileSync(join(BASE, config.queryList), 'utf8'));
   const date = new Date().toISOString().slice(0, 10);
 
   const onlyEngine = process.argv[2];
