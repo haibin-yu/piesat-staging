@@ -9,3 +9,6 @@ tracking-data.json
 航天宏图8月SEO-GEO报告*
 
 .DS_Store
+
+# superpowers 执行台账（scratch，不进 git）
+.superpowers/
