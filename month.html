@@ -218,7 +218,7 @@ function renderAi(data) {
     '</div>' +
     '<div class="chart-box">' +
       '<div class="chart-title">逐条 Query 状态<small>工作指导 · 已上线 / 未覆盖</small></div>' +
-      '<button class="ai-btn" id="toggleQueryStatusBtn">展开覆盖清单</button>' +
+      '<button class="ai-btn" id="toggleQueryStatusBtn">展开状态清单</button>' +
       '<div id="queryStatusBody"></div>' +
     '</div>';
 
@@ -329,23 +329,25 @@ async function toggleQueryStatus() {
   const btn = document.getElementById('toggleQueryStatusBtn');
   if (queryStatusLoaded) {
     body.innerHTML = '';
-    btn.textContent = '展开覆盖清单';
+    btn.textContent = '展开状态清单';
     queryStatusLoaded = false;
     return;
   }
-  btn.textContent = '加载中…';
-  let queryList;
-  try {
-    const res = await fetch('data/query-list.json');
-    queryList = res.ok ? await res.json() : [];
-  } catch (e) {
-    queryList = [];
-  }
-  if (!queryList.length) {
-    body.innerHTML = '<div class="empty">暂无词表数据。</div>';
-    btn.textContent = '展开覆盖清单';
+  if (!aiLastDate) {
+    body.innerHTML = '<div class="empty">该月无末轮探测日期，无法展示引用状态。</div>';
     return;
   }
+  btn.textContent = '加载中…';
+  const [queryList, ...engineData] = await Promise.all([
+    fetch('data/query-list.json').then(r => r.ok ? r.json() : []).catch(() => []),
+    ...aiEngineKeys.map(k => fetch('data/raw/' + k + '/' + aiLastDate + '.json').then(r => r.ok ? r.json() : null).catch(() => null)),
+  ]);
+  if (!queryList.length) {
+    body.innerHTML = '<div class="empty">暂无词表数据。</div>';
+    btn.textContent = '展开状态清单';
+    return;
+  }
+  const engineById = new Map(mergeAiDetail(queryList, engineData, aiEngineKeys).map(e => [e.id, e.engines]));
   const entries = queryList.map(q => ({
     id: q.id,
     text: q.text,
@@ -353,13 +355,14 @@ async function toggleQueryStatus() {
     article: q.article || '—',
     status: q.status || '—',
     category: categoryOf(q.article, q.id),
+    engines: engineById.get(q.id) || {},
   }));
   queryStatusTabs = [
     { key: 'tech', label: '技术博客', list: entries.filter(e => e.category === 'tech') },
     { key: 'ir', label: '投资者关系', list: entries.filter(e => e.category === 'ir') },
   ];
   queryStatusLoaded = true;
-  btn.textContent = '收起覆盖清单';
+  btn.textContent = '收起状态清单';
   body.innerHTML = buildQueryStatus(queryStatusTabs);
   bindQueryStatusTabs(queryStatusTabs);
 }
@@ -373,25 +376,39 @@ function buildQueryStatus(tabs) {
   const techUncovered = tech ? tech.list.filter(e => e.status === '未覆盖').length : 0;
   const irUncovered = ir ? ir.list.filter(e => e.status === '未覆盖').length : 0;
   return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="queryStatusTable">' + renderQueryStatusTable(tabs[0].list) + '</div>' +
-    '<div class="detail-note">口径：已上线 = 已有文章覆盖；未覆盖 = 尚缺文章（待补内容）。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
+    '<div class="detail-note">口径：覆盖状态 = 是否已有内容覆盖；引用状态 = 任一 AI 引擎命中（并集），名次取最高排名。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
+}
+
+function unionRef(engines) {
+  const founds = Object.values(engines || {}).filter(e => e && e.found);
+  if (!founds.length) return { found: false, rank: null };
+  const ranks = founds.map(e => e.rank).filter(r => r != null);
+  return { found: true, rank: ranks.length ? Math.min(...ranks) : null };
 }
 
 function renderQueryStatusTable(entries) {
   if (!entries || !entries.length) return '<div class="empty">该分类暂无词。</div>';
   const rows = entries.map(e => {
-    let statusHtml;
-    if (e.status === '已上线') statusHtml = '<span class="status-on">已上线</span>';
-    else if (e.status === '未覆盖') statusHtml = '<span class="status-off">未覆盖</span>';
-    else statusHtml = escapeHtml(e.status);
+    let covHtml;
+    if (e.status === '已上线') covHtml = '<span class="status-on">已上线</span>';
+    else if (e.status === '未覆盖') covHtml = '<span class="status-off">未覆盖</span>';
+    else covHtml = escapeHtml(e.status);
+
+    const ref = unionRef(e.engines);
+    let refHtml;
+    if (ref.found) refHtml = '<span class="ai-hit">已引用 #' + (ref.rank != null ? ref.rank : '—') + '</span>';
+    else refHtml = '<span class="ai-miss-cell">未引用</span>';
+
     return '<tr' + (e.status === '未覆盖' ? ' class="status-off-row"' : '') + '>' +
       '<td class="date">' + e.id + '</td>' +
       '<td>' + escapeHtml(e.text) + '</td>' +
       '<td>' + escapeHtml(e.intent) + '</td>' +
       '<td class="date">' + escapeHtml(e.article) + '</td>' +
-      '<td>' + statusHtml + '</td>' +
+      '<td>' + covHtml + '</td>' +
+      '<td>' + refHtml + '</td>' +
       '</tr>';
   }).join('');
-  return '<table><thead><tr><th>#</th><th>探测 Query</th><th>意图</th><th>文章</th><th>状态</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  return '<table><thead><tr><th>#</th><th>探测 Query</th><th>意图</th><th>文章</th><th>覆盖状态</th><th>引用状态</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 function bindQueryStatusTabs(tabs) {
