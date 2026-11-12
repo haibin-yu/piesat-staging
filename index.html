@@ -124,7 +124,7 @@ tbody tr:hover{background:#fafbfc}
   <!-- 逐词 × 逐月矩阵 -->
   <div class="table-box" id="matrixBox">
     <div class="chart-title">逐词 × 逐月矩阵<small> 覆盖 × 命中 · 一眼看各月差异</small></div>
-    <div class="sub-note">每格左点 = 覆盖（绿 = 已上线，黄 = 未覆盖）；右符号 = AI 命中（<span class="hit hit-yes">✓</span> 命中 / <span class="hit hit-no">✗</span> 未命中 / <span class="hit hit-na">·</span> 未探测）。</div>
+    <div class="sub-note">每格左点 = 覆盖（绿 = 已上线，黄 = 未覆盖）；右符号 = AI 命中（<span class="hit hit-yes">✓</span> 命中 / <span class="hit hit-no">✗</span> 未命中 / <span class="hit hit-na">·</span> 未纳入）。</div>
     <div class="matrix-summary" id="matrixSummary"><div class="sub-note" style="margin:0">加载中…</div></div>
     <div class="matrix-tabs" id="matrixTabs"></div>
     <div class="table-scroll" id="matrixBody"><div class="sub-note" style="margin:0">加载中…</div></div>
@@ -324,7 +324,7 @@ function renderMatrixSummary(matrix) {
       '<td class="muted">' + nprobe + '</td></tr>';
   }).join('');
   document.getElementById('matrixSummary').innerHTML =
-    '<table><thead><tr><th>月份</th><th>覆盖词数</th><th>AI 命中</th><th>未命中</th><th>未探测</th></tr></thead><tbody>' + rows + '</tbody></table>';
+    '<table><thead><tr><th>月份</th><th>覆盖词数</th><th>AI 命中</th><th>未命中</th><th>未纳入</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 function renderMatrix(matrix) {
@@ -362,7 +362,7 @@ function renderMatrixTable(tab) {
     return '<tr><td class="date">' + q.id + '</td><td>' + escapeHtml(q.text) + '</td>' + cells + '</tr>';
   }).join('');
   document.getElementById('matrixBody').innerHTML = '<table>' + head + '<tbody>' + rows + '</tbody></table>' +
-    '<div class="matrix-legend">阅读：绿点 = 文章已上线覆盖，黄点 = 尚未覆盖。<b>✓</b> = 该月被 AI 引用，<b>✗</b> = 探测了但未引用，<b>·</b> = 该月未探测（8 月无 API 探测，9/10 月词表逐步扩充）。</div>';
+    '<div class="matrix-legend">阅读：绿点 = 文章已上线覆盖，黄点 = 尚未覆盖。<b>✓</b> = 该月被 AI 引用，<b>✗</b> = 探测了但未引用，<b>·</b> = 该月未纳入探测（词表当时尚未收录该词；8 月探测功能尚未开启）。</div>';
 }
 
 loadData().catch(err => {
