@@ -58,6 +58,8 @@ tbody tr:hover{background:#fafbfc}
 .matrix-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .matrix-tab{padding:5px 14px;border:1px solid #e0e4e8;border-radius:14px;font-size:12px;color:#666;cursor:pointer;background:#fff}
 .matrix-tab.active{background:#4a90d9;color:#fff;border-color:#4a90d9}
+.matrix-toggle{margin-left:auto;padding:5px 14px;border:1px solid #e0e4e8;border-radius:14px;font-size:12px;color:#666;cursor:pointer;background:#fff}
+.matrix-toggle:hover{border-color:#4a90d9;color:#4a90d9}
 .matrix-cell{text-align:center;padding:8px 4px;white-space:nowrap}
 .matrix-cell .cov{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
 .matrix-cell.cov-on .cov{background:#16a34a}
@@ -124,10 +126,12 @@ tbody tr:hover{background:#fafbfc}
   <!-- 逐词 × 逐月矩阵 -->
   <div class="table-box" id="matrixBox">
     <div class="chart-title">逐词 × 逐月矩阵<small> 覆盖 × 命中 · 一眼看各月差异</small></div>
-    <div class="sub-note">每格左点 = 覆盖（绿 = 已上线，黄 = 未覆盖）；右符号 = AI 命中（<span class="hit hit-yes">✓</span> 命中 / <span class="hit hit-no">✗</span> 未命中 / <span class="hit hit-na">·</span> 未纳入）。</div>
     <div class="matrix-summary" id="matrixSummary"><div class="sub-note" style="margin:0">加载中…</div></div>
     <div class="matrix-tabs" id="matrixTabs"></div>
-    <div class="table-scroll" id="matrixBody"><div class="sub-note" style="margin:0">加载中…</div></div>
+    <div id="matrixDetail" style="display:none">
+      <div class="sub-note">每格左点 = 覆盖（绿 = 已上线，黄 = 未覆盖）；右符号 = AI 命中（<span class="hit hit-yes">✓</span> 命中 / <span class="hit hit-no">✗</span> 未命中 / <span class="hit hit-na">·</span> 未纳入）。</div>
+      <div class="table-scroll" id="matrixBody"><div class="sub-note" style="margin:0">加载中…</div></div>
+    </div>
   </div>
 
   <!-- 探测词表说明 -->
@@ -337,13 +341,22 @@ function renderMatrix(matrix) {
   ];
   document.getElementById('matrixTabs').innerHTML = tabs.map((t, i) =>
     '<button class="matrix-tab' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">' + t.label + '（' + t.list.length + ' 词）</button>'
-  ).join('');
+  ).join('') + '<button class="matrix-toggle" id="matrixToggle" type="button">展开矩阵</button>';
   document.querySelectorAll('#matrixTabs .matrix-tab').forEach(tab => tab.addEventListener('click', () => {
     document.querySelectorAll('#matrixTabs .matrix-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     renderMatrixTable(tabs[Number(tab.dataset.idx)]);
   }));
+  document.getElementById('matrixToggle').addEventListener('click', toggleMatrix);
   renderMatrixTable(tabs[0]);
+}
+
+function toggleMatrix() {
+  const detail = document.getElementById('matrixDetail');
+  const btn = document.getElementById('matrixToggle');
+  const collapsed = detail.style.display === 'none';
+  detail.style.display = collapsed ? '' : 'none';
+  btn.textContent = collapsed ? '收起矩阵' : '展开矩阵';
 }
 
 function renderMatrixTable(tab) {
