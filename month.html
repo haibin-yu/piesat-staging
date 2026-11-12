@@ -86,6 +86,14 @@ tr.status-off-row td{background:rgba(185,137,63,0.05)}
     <div id="aiBody"></div>
   </div>
 
+  <div class="section" id="queryStatusSection">
+    <div class="section-title">逐条 Query 状态<small>工作指导 · 覆盖 × 引用</small></div>
+    <div class="chart-box">
+      <button class="ai-btn" id="toggleQueryStatusBtn">展开状态清单</button>
+      <div id="queryStatusBody"></div>
+    </div>
+  </div>
+
   <div class="section" id="bscSection">
     <div class="section-title">百度搜索 · 第一方数据<small>官网在百度真实搜索中被展现 / 点击的回流</small></div>
     <div id="bscCards"></div>
@@ -117,6 +125,7 @@ function escapeHtml(s) {
 }
 
 async function main() {
+  document.getElementById('toggleQueryStatusBtn').addEventListener('click', toggleQueryStatus);
   let config;
   try { config = await (await fetch('config.json')).json(); } catch (e) {}
   const brand = (config && config.brandName) || '航天宏图';
@@ -215,15 +224,9 @@ function renderAi(data) {
       '<div class="chart-title">逐条 AI 命中<small>按词分类 · 末轮探测（' + (aiLastDate || '—') + '）</small></div>' +
       '<button class="ai-btn" id="toggleAiDetailBtn">展开逐条命中</button>' +
       '<div id="aiDetailBody"></div>' +
-    '</div>' +
-    '<div class="chart-box">' +
-      '<div class="chart-title">逐条 Query 状态<small>工作指导 · 已上线 / 未覆盖</small></div>' +
-      '<button class="ai-btn" id="toggleQueryStatusBtn">展开状态清单</button>' +
-      '<div id="queryStatusBody"></div>' +
     '</div>';
 
   document.getElementById('toggleAiDetailBtn').addEventListener('click', toggleAiDetail);
-  document.getElementById('toggleQueryStatusBtn').addEventListener('click', toggleQueryStatus);
 }
 
 function categoryOf(article, id) {
@@ -333,21 +336,26 @@ async function toggleQueryStatus() {
     queryStatusLoaded = false;
     return;
   }
-  if (!aiLastDate) {
-    body.innerHTML = '<div class="empty">该月无末轮探测日期，无法展示引用状态。</div>';
-    return;
-  }
   btn.textContent = '加载中…';
-  const [queryList, ...engineData] = await Promise.all([
-    fetch('data/query-list.json').then(r => r.ok ? r.json() : []).catch(() => []),
-    ...aiEngineKeys.map(k => fetch('data/raw/' + k + '/' + aiLastDate + '.json').then(r => r.ok ? r.json() : null).catch(() => null)),
-  ]);
+  let queryList;
+  try {
+    const res = await fetch('data/query-list.json');
+    queryList = res.ok ? await res.json() : [];
+  } catch (e) {
+    queryList = [];
+  }
   if (!queryList.length) {
     body.innerHTML = '<div class="empty">暂无词表数据。</div>';
     btn.textContent = '展开状态清单';
     return;
   }
-  const engineById = new Map(mergeAiDetail(queryList, engineData, aiEngineKeys).map(e => [e.id, e.engines]));
+  let engineById = new Map();
+  if (aiLastDate) {
+    const engineData = await Promise.all(
+      aiEngineKeys.map(k => fetch('data/raw/' + k + '/' + aiLastDate + '.json').then(r => r.ok ? r.json() : null).catch(() => null))
+    );
+    engineById = new Map(mergeAiDetail(queryList, engineData, aiEngineKeys).map(e => [e.id, e.engines]));
+  }
   const entries = queryList.map(q => ({
     id: q.id,
     text: q.text,
@@ -376,7 +384,7 @@ function buildQueryStatus(tabs) {
   const techUncovered = tech ? tech.list.filter(e => e.status === '未覆盖').length : 0;
   const irUncovered = ir ? ir.list.filter(e => e.status === '未覆盖').length : 0;
   return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="queryStatusTable">' + renderQueryStatusTable(tabs[0].list) + '</div>' +
-    '<div class="detail-note">口径：覆盖状态 = 是否已有内容覆盖；引用状态 = 任一 AI 引擎命中（并集），名次取最高排名。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
+    '<div class="detail-note">口径：覆盖状态 = 是否已有内容覆盖；引用状态 = 末轮探测中任一 AI 引擎命中（并集），名次取最高排名；未探测 = 该月无探测数据。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
 }
 
 function unionRef(engines) {
@@ -394,10 +402,14 @@ function renderQueryStatusTable(entries) {
     else if (e.status === '未覆盖') covHtml = '<span class="status-off">未覆盖</span>';
     else covHtml = escapeHtml(e.status);
 
-    const ref = unionRef(e.engines);
     let refHtml;
-    if (ref.found) refHtml = '<span class="ai-hit">已引用 #' + (ref.rank != null ? ref.rank : '—') + '</span>';
-    else refHtml = '<span class="ai-miss-cell">未引用</span>';
+    if (Object.keys(e.engines || {}).length === 0) {
+      refHtml = '<span class="ai-miss-cell">未探测</span>';
+    } else {
+      const ref = unionRef(e.engines);
+      if (ref.found) refHtml = '<span class="ai-hit">已引用 #' + (ref.rank != null ? ref.rank : '—') + '</span>';
+      else refHtml = '<span class="ai-miss-cell">未引用</span>';
+    }
 
     return '<tr' + (e.status === '未覆盖' ? ' class="status-off-row"' : '') + '>' +
       '<td class="date">' + e.id + '</td>' +
