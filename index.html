@@ -54,6 +54,21 @@ tbody tr:hover{background:#fafbfc}
 .query-list li .qtext{flex:1}
 .query-list li .qart{color:#aaa;flex-shrink:0;font-size:11px}
 
+/* 逐词 × 逐月矩阵 */
+.matrix-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.matrix-tab{padding:5px 14px;border:1px solid #e0e4e8;border-radius:14px;font-size:12px;color:#666;cursor:pointer;background:#fff}
+.matrix-tab.active{background:#4a90d9;color:#fff;border-color:#4a90d9}
+.matrix-cell{text-align:center;padding:8px 4px;white-space:nowrap}
+.matrix-cell .cov{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.matrix-cell.cov-on .cov{background:#16a34a}
+.matrix-cell.cov-off .cov{background:#d9c9a3}
+.matrix-cell .hit{font-size:12px;font-weight:700}
+.hit-yes{color:#16a34a}
+.hit-no{color:#e8453c}
+.hit-na{color:#ccc}
+.matrix-legend{font-size:11px;color:#999;margin-top:12px;line-height:1.8}
+.matrix-legend b{font-weight:600;color:#666}
+
 /* 底部 */
 .footer{margin-top:48px;padding-top:24px;border-top:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;flex-wrap:wrap;gap:8px}
 .footer a{color:#4a90d9;text-decoration:none}
@@ -101,6 +116,14 @@ tbody tr:hover{background:#fafbfc}
     </div>
   </div>
 
+  <!-- 逐词 × 逐月矩阵 -->
+  <div class="table-box" id="matrixBox">
+    <div class="chart-title">逐词 × 逐月矩阵<small> 覆盖 × 命中 · 一眼看各月差异</small></div>
+    <div class="sub-note">每格左点 = 覆盖（绿 = 已上线，黄 = 未覆盖）；右符号 = AI 命中（<span class="hit hit-yes">✓</span> 命中 / <span class="hit hit-no">✗</span> 未命中 / <span class="hit hit-na">·</span> 未探测）。</div>
+    <div class="matrix-tabs" id="matrixTabs"></div>
+    <div class="table-scroll" id="matrixBody"><div class="sub-note" style="margin:0">加载中…</div></div>
+  </div>
+
   <!-- 探测词表说明 -->
   <div class="table-box">
     <div class="chart-title">探测词表</div>
@@ -131,9 +154,17 @@ async function loadData() {
   renderHeader(config, summary);
   renderCompare(summary.months || []);
   renderQueryList(queryList);
+  // 矩阵独立加载，失败不阻塞其余模块
+  try {
+    const res = await fetch('data/aggregated/matrix.json');
+    if (res.ok) renderMatrix(await res.json());
+  } catch (e) { console.warn('矩阵数据加载失败:', e); }
 }
 
 function fmt(n) { return n == null ? '—' : Number(n).toLocaleString('zh-CN'); }
+function escapeHtml(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
 // ========== 头部 ==========
 function renderHeader(config, summary) {
@@ -265,6 +296,46 @@ function renderQueryList(queryList) {
     (q.status === '未覆盖' ? ' <span style="color:#b9893f;font-size:10px">未覆盖</span>' : '') +
     '</span><span class="qart">' + (q.article || '') + '</span></li>'
   ).join('');
+}
+
+// ========== 逐词 × 逐月矩阵 ==========
+let matrixData = null;
+
+function renderMatrix(matrix) {
+  matrixData = matrix;
+  if (!matrix || !matrix.months || !matrix.months.length || !matrix.queries || !matrix.queries.length) return;
+  const tabs = [
+    { key: 'tech', label: '技术博客', list: matrix.queries.filter(q => q.category === 'tech') },
+    { key: 'ir', label: '投资者关系', list: matrix.queries.filter(q => q.category === 'ir') },
+  ];
+  document.getElementById('matrixTabs').innerHTML = tabs.map((t, i) =>
+    '<button class="matrix-tab' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">' + t.label + '（' + t.list.length + ' 词）</button>'
+  ).join('');
+  document.querySelectorAll('#matrixTabs .matrix-tab').forEach(tab => tab.addEventListener('click', () => {
+    document.querySelectorAll('#matrixTabs .matrix-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderMatrixTable(tabs[Number(tab.dataset.idx)]);
+  }));
+  renderMatrixTable(tabs[0]);
+}
+
+function renderMatrixTable(tab) {
+  const months = matrixData.months;
+  const head = '<thead><tr><th>#</th><th>探测 Query</th>' + months.map(m => '<th>' + m + '</th>').join('') + '</tr></thead>';
+  const rows = tab.list.map(q => {
+    const cells = months.map(m => {
+      const c = q.months[m];
+      const covCls = c && c.covered ? 'cov-on' : 'cov-off';
+      let hitHtml;
+      if (c && c.hit === true) hitHtml = '<span class="hit hit-yes">✓</span>';
+      else if (c && c.hit === false) hitHtml = '<span class="hit hit-no">✗</span>';
+      else hitHtml = '<span class="hit hit-na">·</span>';
+      return '<td class="matrix-cell ' + covCls + '"><span class="cov"></span>' + hitHtml + '</td>';
+    }).join('');
+    return '<tr><td class="date">' + q.id + '</td><td>' + escapeHtml(q.text) + '</td>' + cells + '</tr>';
+  }).join('');
+  document.getElementById('matrixBody').innerHTML = '<table>' + head + '<tbody>' + rows + '</tbody></table>' +
+    '<div class="matrix-legend">阅读：绿点 = 文章已上线覆盖，黄点 = 尚未覆盖。<b>✓</b> = 该月被 AI 引用，<b>✗</b> = 探测了但未引用，<b>·</b> = 该月未探测（8 月无 API 探测，9/10 月词表逐步扩充）。</div>';
 }
 
 loadData().catch(err => {
