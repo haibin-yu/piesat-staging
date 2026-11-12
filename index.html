@@ -370,17 +370,19 @@ function renderMatrix(matrix) {
     document.querySelectorAll('#matrixTabs .matrix-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     renderMatrixTable(tabs[Number(tab.dataset.idx)]);
+    setMatrixExpanded(true);
   }));
   document.getElementById('matrixToggle').addEventListener('click', toggleMatrix);
   renderMatrixTable(tabs[0]);
 }
 
+function setMatrixExpanded(expanded) {
+  document.getElementById('matrixDetail').style.display = expanded ? '' : 'none';
+  document.getElementById('matrixToggle').textContent = expanded ? '收起矩阵' : '展开矩阵';
+}
+
 function toggleMatrix() {
-  const detail = document.getElementById('matrixDetail');
-  const btn = document.getElementById('matrixToggle');
-  const collapsed = detail.style.display === 'none';
-  detail.style.display = collapsed ? '' : 'none';
-  btn.textContent = collapsed ? '收起矩阵' : '展开矩阵';
+  setMatrixExpanded(document.getElementById('matrixDetail').style.display === 'none');
 }
 
 function renderMatrixTable(tab) {
