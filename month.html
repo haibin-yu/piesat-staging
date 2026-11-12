@@ -396,7 +396,7 @@ function buildQueryStatus(tabs) {
   const techUncovered = tech ? tech.list.filter(e => e.status === '未覆盖').length : 0;
   const irUncovered = ir ? ir.list.filter(e => e.status === '未覆盖').length : 0;
   return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="queryStatusTable">' + renderQueryStatusTable(tabs[0].list) + '</div>' +
-    '<div class="detail-note">口径：覆盖状态 = 该月该词文章是否已上线（按上线日期反推）；引用状态 = 末轮探测中任一 AI 引擎命中（并集），名次取最高排名；未探测 = 该月无探测数据。技术博客该月未覆盖 ' + techUncovered + ' 词 · 投资者关系该月未覆盖 ' + irUncovered + ' 词。</div>';
+    '<div class="detail-note">口径：覆盖状态 = 该月该词文章是否已上线（按上线日期反推）；引用状态 = 末轮探测中任一 AI 引擎命中（并集），名次取最高排名；未纳入 = 该月词表尚未收录该词（8 月为探测功能尚未开启）。技术博客该月未覆盖 ' + techUncovered + ' 词 · 投资者关系该月未覆盖 ' + irUncovered + ' 词。</div>';
 }
 
 function unionRef(engines) {
@@ -416,7 +416,7 @@ function renderQueryStatusTable(entries) {
 
     let refHtml;
     if (Object.keys(e.engines || {}).length === 0) {
-      refHtml = '<span class="ai-miss-cell">未探测</span>';
+      refHtml = '<span class="ai-miss-cell">未纳入</span>';
     } else {
       const ref = unionRef(e.engines);
       if (ref.found) refHtml = '<span class="ai-hit">已引用 #' + (ref.rank != null ? ref.rank : '—') + '</span>';
