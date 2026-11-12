@@ -60,6 +60,9 @@ td.last a{color:#4a90d9;text-decoration:none}
 .ai-miss-cell{color:#d0d0d0}
 tr.ai-miss td{background:rgba(217,83,79,0.06)}
 tr.ai-miss td.date{color:#c0392b}
+.status-on{color:#2e7d32;font-weight:600}
+.status-off{color:#b9893f;font-weight:600}
+tr.status-off-row td{background:rgba(185,137,63,0.05)}
 
 .empty{color:#999;font-size:13px;line-height:1.9;padding:8px 0}
 .insight{background:#fff;border-radius:8px;padding:18px 22px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin-top:16px}
@@ -105,6 +108,8 @@ let aiLastDate = null;
 let aiEngineKeys = [];
 let aiDetailLoaded = false;
 let aiDetailTabs = null;
+let queryStatusLoaded = false;
+let queryStatusTabs = null;
 
 function fmt(n) { return n == null ? '—' : Number(n).toLocaleString('zh-CN'); }
 function escapeHtml(s) {
@@ -210,9 +215,15 @@ function renderAi(data) {
       '<div class="chart-title">逐条 AI 命中<small>按词分类 · 末轮探测（' + (aiLastDate || '—') + '）</small></div>' +
       '<button class="ai-btn" id="toggleAiDetailBtn">展开逐条命中</button>' +
       '<div id="aiDetailBody"></div>' +
+    '</div>' +
+    '<div class="chart-box">' +
+      '<div class="chart-title">逐条 Query 状态<small>工作指导 · 已上线 / 未覆盖</small></div>' +
+      '<button class="ai-btn" id="toggleQueryStatusBtn">展开覆盖清单</button>' +
+      '<div id="queryStatusBody"></div>' +
     '</div>';
 
   document.getElementById('toggleAiDetailBtn').addEventListener('click', toggleAiDetail);
+  document.getElementById('toggleQueryStatusBtn').addEventListener('click', toggleQueryStatus);
 }
 
 function categoryOf(article, id) {
@@ -309,6 +320,85 @@ function bindAiTabs(tabs) {
     document.querySelectorAll('#aiDetailBody .bsc-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById('aiDetailTable').innerHTML = renderAiTable(tabs[Number(tab.dataset.idx)].list);
+  }));
+}
+
+// ========== 逐条 Query 状态（工作指导） ==========
+async function toggleQueryStatus() {
+  const body = document.getElementById('queryStatusBody');
+  const btn = document.getElementById('toggleQueryStatusBtn');
+  if (queryStatusLoaded) {
+    body.innerHTML = '';
+    btn.textContent = '展开覆盖清单';
+    queryStatusLoaded = false;
+    return;
+  }
+  btn.textContent = '加载中…';
+  let queryList;
+  try {
+    const res = await fetch('data/query-list.json');
+    queryList = res.ok ? await res.json() : [];
+  } catch (e) {
+    queryList = [];
+  }
+  if (!queryList.length) {
+    body.innerHTML = '<div class="empty">暂无词表数据。</div>';
+    btn.textContent = '展开覆盖清单';
+    return;
+  }
+  const entries = queryList.map(q => ({
+    id: q.id,
+    text: q.text,
+    intent: q.intent || '',
+    article: q.article || '—',
+    status: q.status || '—',
+    category: categoryOf(q.article, q.id),
+  }));
+  queryStatusTabs = [
+    { key: 'tech', label: '技术博客', list: entries.filter(e => e.category === 'tech') },
+    { key: 'ir', label: '投资者关系', list: entries.filter(e => e.category === 'ir') },
+  ];
+  queryStatusLoaded = true;
+  btn.textContent = '收起覆盖清单';
+  body.innerHTML = buildQueryStatus(queryStatusTabs);
+  bindQueryStatusTabs(queryStatusTabs);
+}
+
+function buildQueryStatus(tabs) {
+  const tabsHtml = tabs.map((t, i) =>
+    '<button class="bsc-tab' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">' + t.label + '（' + t.list.length + ' 词）</button>'
+  ).join('');
+  const tech = tabs.find(t => t.key === 'tech');
+  const ir = tabs.find(t => t.key === 'ir');
+  const techUncovered = tech ? tech.list.filter(e => e.status === '未覆盖').length : 0;
+  const irUncovered = ir ? ir.list.filter(e => e.status === '未覆盖').length : 0;
+  return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="queryStatusTable">' + renderQueryStatusTable(tabs[0].list) + '</div>' +
+    '<div class="detail-note">口径：已上线 = 已有文章覆盖；未覆盖 = 尚缺文章（待补内容）。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
+}
+
+function renderQueryStatusTable(entries) {
+  if (!entries || !entries.length) return '<div class="empty">该分类暂无词。</div>';
+  const rows = entries.map(e => {
+    let statusHtml;
+    if (e.status === '已上线') statusHtml = '<span class="status-on">已上线</span>';
+    else if (e.status === '未覆盖') statusHtml = '<span class="status-off">未覆盖</span>';
+    else statusHtml = escapeHtml(e.status);
+    return '<tr' + (e.status === '未覆盖' ? ' class="status-off-row"' : '') + '>' +
+      '<td class="date">' + e.id + '</td>' +
+      '<td>' + escapeHtml(e.text) + '</td>' +
+      '<td>' + escapeHtml(e.intent) + '</td>' +
+      '<td class="date">' + escapeHtml(e.article) + '</td>' +
+      '<td>' + statusHtml + '</td>' +
+      '</tr>';
+  }).join('');
+  return '<table><thead><tr><th>#</th><th>探测 Query</th><th>意图</th><th>文章</th><th>状态</th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function bindQueryStatusTabs(tabs) {
+  document.querySelectorAll('#queryStatusBody .bsc-tab').forEach(tab => tab.addEventListener('click', () => {
+    document.querySelectorAll('#queryStatusBody .bsc-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('queryStatusTable').innerHTML = renderQueryStatusTable(tabs[Number(tab.dataset.idx)].list);
   }));
 }
 
