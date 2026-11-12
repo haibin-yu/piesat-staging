@@ -116,6 +116,7 @@ let aiLastDate = null;
 let aiEngineKeys = [];
 let aiDetailLoaded = false;
 let aiDetailTabs = null;
+let aiArticleDates = {};
 let queryStatusLoaded = false;
 let queryStatusTabs = null;
 
@@ -281,10 +282,12 @@ async function toggleAiDetail() {
     return;
   }
   btn.textContent = '加载中…';
-  const [queryList, ...engineData] = await Promise.all([
+  const [queryList, articleDates, ...engineData] = await Promise.all([
     fetch('data/query-list.json').then(r => r.ok ? r.json() : []).catch(() => []),
+    fetch('data/article-dates.json').then(r => r.ok ? r.json() : {}).catch(() => {}),
     ...aiEngineKeys.map(k => fetch('data/raw/' + k + '/' + aiLastDate + '.json').then(r => r.ok ? r.json() : null).catch(() => null)),
   ]);
+  aiArticleDates = articleDates || {};
   const entries = mergeAiDetail(queryList, engineData, aiEngineKeys);
   if (!entries.length) {
     body.innerHTML = '<div class="empty">该月无逐条命中数据。</div>';
@@ -306,7 +309,7 @@ function buildAiDetail(tabs) {
     '<button class="bsc-tab' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">' + t.label + '（' + t.list.length + ' 词）</button>'
   ).join('');
   return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="aiDetailTable">' + renderAiTable(tabs[0].list) + '</div>' +
-    '<div class="detail-note">口径：命中 = 该引擎答案中官网 piesat.cn 被引用；名次 = 在结果列表中的序号。三引擎均未命中的词整行标红。</div>';
+    '<div class="detail-note">口径：命中 = 该引擎答案中官网 piesat.cn 被引用；名次 = 在结果列表中的序号；上线日期 = 该词对应文章的上线日期（"—" = 未关联具体文章）。三引擎均未命中的词整行标红。</div>';
 }
 
 function renderAiTable(entries) {
@@ -320,9 +323,10 @@ function renderAiTable(entries) {
       return '<td class="ai-miss-cell">✗</td>';
     }).join('');
     const allMiss = keys.every(k => !e.engines[k] || !e.engines[k].found);
-    return '<tr' + (allMiss ? ' class="ai-miss"' : '') + '><td class="date">' + e.id + '</td><td>' + escapeHtml(e.text) + '</td>' + cells + '</tr>';
+    const launchDate = aiArticleDates[e.article] || '—';
+    return '<tr' + (allMiss ? ' class="ai-miss"' : '') + '><td class="date">' + e.id + '</td><td>' + escapeHtml(e.text) + '</td><td class="date">' + launchDate + '</td>' + cells + '</tr>';
   }).join('');
-  return '<table><thead><tr><th>#</th><th>探测 Query</th>' + keys.map(k => '<th>' + (ENGINE_LABELS[k] || escapeHtml(k)) + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>';
+  return '<table><thead><tr><th>#</th><th>探测 Query</th><th>上线日期</th>' + keys.map(k => '<th>' + (ENGINE_LABELS[k] || escapeHtml(k)) + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 function bindAiTabs(tabs) {
