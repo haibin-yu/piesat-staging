@@ -235,6 +235,13 @@ function categoryOf(article, id) {
   return 'tech';
 }
 
+// 该 article 在该月是否已上线覆盖（上线日期 YYYY-MM-DD ≤ 当月）
+function coverageFor(article, articleDates, month) {
+  const d = articleDates[article];
+  if (!d) return false;
+  return d.slice(0, 7) <= month;
+}
+
 function mergeAiDetail(queryList, engineData, engineKeys) {
   const qlMap = new Map((queryList || []).map(q => [q.id, q]));
   const byId = new Map();
@@ -337,12 +344,17 @@ async function toggleQueryStatus() {
     return;
   }
   btn.textContent = '加载中…';
-  let queryList;
+  let queryList, articleDates;
   try {
-    const res = await fetch('data/query-list.json');
-    queryList = res.ok ? await res.json() : [];
+    const [qlRes, adRes] = await Promise.all([
+      fetch('data/query-list.json'),
+      fetch('data/article-dates.json'),
+    ]);
+    queryList = qlRes.ok ? await qlRes.json() : [];
+    articleDates = adRes.ok ? await adRes.json() : {};
   } catch (e) {
     queryList = [];
+    articleDates = {};
   }
   if (!queryList.length) {
     body.innerHTML = '<div class="empty">暂无词表数据。</div>';
@@ -361,7 +373,7 @@ async function toggleQueryStatus() {
     text: q.text,
     intent: q.intent || '',
     article: q.article || '—',
-    status: q.status || '—',
+    status: coverageFor(q.article, articleDates, currentMonth) ? '已上线' : '未覆盖',
     category: categoryOf(q.article, q.id),
     engines: engineById.get(q.id) || {},
   }));
@@ -384,7 +396,7 @@ function buildQueryStatus(tabs) {
   const techUncovered = tech ? tech.list.filter(e => e.status === '未覆盖').length : 0;
   const irUncovered = ir ? ir.list.filter(e => e.status === '未覆盖').length : 0;
   return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="queryStatusTable">' + renderQueryStatusTable(tabs[0].list) + '</div>' +
-    '<div class="detail-note">口径：覆盖状态 = 是否已有内容覆盖；引用状态 = 末轮探测中任一 AI 引擎命中（并集），名次取最高排名；未探测 = 该月无探测数据。技术博客未覆盖 ' + techUncovered + ' 词 · 投资者关系未覆盖 ' + irUncovered + ' 词。</div>';
+    '<div class="detail-note">口径：覆盖状态 = 该月该词文章是否已上线（按上线日期反推）；引用状态 = 末轮探测中任一 AI 引擎命中（并集），名次取最高排名；未探测 = 该月无探测数据。技术博客该月未覆盖 ' + techUncovered + ' 词 · 投资者关系该月未覆盖 ' + irUncovered + ' 词。</div>';
 }
 
 function unionRef(engines) {
