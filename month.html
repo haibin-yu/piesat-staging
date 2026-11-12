@@ -56,6 +56,10 @@ span.total{color:#aaa;font-size:11px}
 .detail-note{font-size:11px;color:#aaa;margin-top:10px;line-height:1.7}
 td.last{font-size:12px;color:#888;font-variant-numeric:tabular-nums}
 td.last a{color:#4a90d9;text-decoration:none}
+.ai-hit{color:#2e7d32;font-weight:600}
+.ai-miss-cell{color:#d0d0d0}
+tr.ai-miss td{background:rgba(217,83,79,0.06)}
+tr.ai-miss td.date{color:#c0392b}
 
 .empty{color:#999;font-size:13px;line-height:1.9;padding:8px 0}
 .insight{background:#fff;border-radius:8px;padding:18px 22px;box-shadow:0 1px 3px rgba(0,0,0,0.04);margin-top:16px}
@@ -97,6 +101,10 @@ const ENGINE_LABELS = { doubao: '豆包·搜索', doubao_model: '豆包·模型'
 let currentMonth = null;
 let monthList = [];
 let detailLoaded = false;
+let aiLastDate = null;
+let aiEngineKeys = [];
+let aiDetailLoaded = false;
+let aiDetailTabs = null;
 
 function fmt(n) { return n == null ? '—' : Number(n).toLocaleString('zh-CN'); }
 function escapeHtml(s) {
@@ -185,6 +193,10 @@ function renderAi(data) {
     rows += '<tr><td class="date">' + escapeHtml(w.date) + '</td>' + cells + '</tr>';
   }
 
+  aiEngineKeys = engines;
+  aiLastDate = weekly.length ? weekly[weekly.length - 1].date : null;
+  aiDetailLoaded = false;
+
   body.innerHTML =
     '<div class="cards">' +
       '<div class="card"><div class="card-label">月末命中率</div><div class="card-value">' + pct + '<span class="pct">%</span></div><div class="card-delta">' + fmt(s.unionHits) + ' / ' + fmt(s.probedTotal) + ' 词命中</div></div>' +
@@ -193,7 +205,111 @@ function renderAi(data) {
     '<div class="chart-box">' +
       '<div class="chart-title">每周命中趋势（各引擎 hit / total）</div>' +
       '<table><thead><tr><th>探测日期</th>' + engines.map(e => '<th>' + (ENGINE_LABELS[e] || escapeHtml(e)) + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>' +
+    '</div>' +
+    '<div class="chart-box">' +
+      '<div class="chart-title">逐条 AI 命中<small>按词分类 · 末轮探测（' + (aiLastDate || '—') + '）</small></div>' +
+      '<button class="ai-btn" id="toggleAiDetailBtn">展开逐条命中</button>' +
+      '<div id="aiDetailBody"></div>' +
     '</div>';
+
+  document.getElementById('toggleAiDetailBtn').addEventListener('click', toggleAiDetail);
+}
+
+function categoryOf(article, id) {
+  if (article === '其他公告') return 'ir';
+  if ([19, 20, 21, 22].includes(id)) return 'ir';
+  return 'tech';
+}
+
+function mergeAiDetail(queryList, engineData, engineKeys) {
+  const qlMap = new Map((queryList || []).map(q => [q.id, q]));
+  const byId = new Map();
+  for (let i = 0; i < engineKeys.length; i++) {
+    const data = engineData[i];
+    if (!data || !Array.isArray(data.queries)) continue;
+    for (const q of data.queries) {
+      if (!byId.has(q.id)) byId.set(q.id, { id: q.id, engines: {} });
+      byId.get(q.id).engines[engineKeys[i]] = { found: !!q.found, rank: q.rank };
+    }
+  }
+  const entries = [...byId.values()].map(e => {
+    const meta = qlMap.get(e.id) || {};
+    return {
+      id: e.id,
+      text: meta.text || ('#' + e.id),
+      intent: meta.intent || '',
+      article: meta.article || '—',
+      category: categoryOf(meta.article, e.id),
+      engines: e.engines,
+    };
+  });
+  return entries;
+}
+
+async function toggleAiDetail() {
+  const body = document.getElementById('aiDetailBody');
+  const btn = document.getElementById('toggleAiDetailBtn');
+  if (aiDetailLoaded) {
+    body.innerHTML = '';
+    btn.textContent = '展开逐条命中';
+    aiDetailLoaded = false;
+    return;
+  }
+  if (!aiLastDate) {
+    body.innerHTML = '<div class="empty">该月无末轮探测日期，无法展示逐条命中。</div>';
+    return;
+  }
+  btn.textContent = '加载中…';
+  const [queryList, ...engineData] = await Promise.all([
+    fetch('data/query-list.json').then(r => r.ok ? r.json() : []).catch(() => []),
+    ...aiEngineKeys.map(k => fetch('data/raw/' + k + '/' + aiLastDate + '.json').then(r => r.ok ? r.json() : null).catch(() => null)),
+  ]);
+  const entries = mergeAiDetail(queryList, engineData, aiEngineKeys);
+  if (!entries.length) {
+    body.innerHTML = '<div class="empty">该月无逐条命中数据。</div>';
+    btn.textContent = '展开逐条命中';
+    return;
+  }
+  aiDetailTabs = [
+    { key: 'tech', label: '技术博客', list: entries.filter(e => e.category === 'tech') },
+    { key: 'ir', label: '投资者关系', list: entries.filter(e => e.category === 'ir') },
+  ];
+  aiDetailLoaded = true;
+  btn.textContent = '收起逐条命中';
+  body.innerHTML = buildAiDetail(aiDetailTabs);
+  bindAiTabs(aiDetailTabs);
+}
+
+function buildAiDetail(tabs) {
+  const tabsHtml = tabs.map((t, i) =>
+    '<button class="bsc-tab' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">' + t.label + '（' + t.list.length + ' 词）</button>'
+  ).join('');
+  return '<div class="bsc-tabs">' + tabsHtml + '</div><div id="aiDetailTable">' + renderAiTable(tabs[0].list) + '</div>' +
+    '<div class="detail-note">口径：命中 = 该引擎答案中官网 piesat.cn 被引用；名次 = 在结果列表中的序号。三引擎均未命中的词整行标红。</div>';
+}
+
+function renderAiTable(entries) {
+  if (!entries || !entries.length) return '<div class="empty">该分类暂无词。</div>';
+  const keys = aiEngineKeys;
+  const rows = entries.map(e => {
+    const cells = keys.map(k => {
+      const eng = e.engines[k];
+      if (!eng) return '<td class="ai-miss-cell">—</td>';
+      if (eng.found) return '<td class="ai-hit">' + (eng.rank != null ? '第' + eng.rank + '名' : '已引用') + '</td>';
+      return '<td class="ai-miss-cell">✗</td>';
+    }).join('');
+    const allMiss = keys.every(k => !e.engines[k] || !e.engines[k].found);
+    return '<tr' + (allMiss ? ' class="ai-miss"' : '') + '><td class="date">' + e.id + '</td><td>' + escapeHtml(e.text) + '</td>' + cells + '</tr>';
+  }).join('');
+  return '<table><thead><tr><th>#</th><th>探测 Query</th>' + keys.map(k => '<th>' + (ENGINE_LABELS[k] || escapeHtml(k)) + '</th>').join('') + '</tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function bindAiTabs(tabs) {
+  document.querySelectorAll('#aiDetailBody .bsc-tab').forEach(tab => tab.addEventListener('click', () => {
+    document.querySelectorAll('#aiDetailBody .bsc-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('aiDetailTable').innerHTML = renderAiTable(tabs[Number(tab.dataset.idx)].list);
+  }));
 }
 
 function renderBsc(data) {
